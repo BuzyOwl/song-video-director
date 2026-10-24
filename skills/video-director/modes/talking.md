@@ -97,7 +97,7 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 ## Mode rules
 - **Cuts land in silence:** energy decides and VAD gates. Never widen a snap window past about 50 ms.
 - **Faces:** uniform scale and shift only. Compile enforces the lanes.
-- **Type:** one caption lane, one card lane, one accent, ≥ 70 px at 1080 wide.
+- **Type:** one caption lane, one card lane, accents from the look, ≥ 70 px at 1080 wide.
 - **New graphic:** a new card in `remotion/src/cards`, never per-clip HTML.
 - **After touching the cut logic:** `python -I $SKILL/talking/scripts/test_prep.py`.
 - **Honest limits:**

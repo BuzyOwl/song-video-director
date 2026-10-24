@@ -33,7 +33,7 @@ VD_MODELS=D:\video-director\models
 
 ## How a video gets made
 
-1. You bring one to three videos you love. `film_gate.py` measures their cut rate, stillness and palette, and those numbers seed the brief. No references? Pick a look from a gallery of real clips (`skills/video-director/gallery/index.html`). It remembers what you approved and rejected, so the next project starts closer to your taste.
+1. You bring one to three videos you love. `film_gate.py` measures their cut rate, stillness and palette, and those numbers seed the brief. Every song gets a look invented for it; a gallery of real clips (`skills/video-director/gallery/index.html`) shows what the engines can do, as sparks rather than templates. Talking-head and YouTube videos use your brand kit or a fresh look you choose. It remembers what you rejected so it does not repeat a miss, and never pushes you back to an old look.
 2. Claude asks five questions in one message. Every question has a default and "go" accepts them all.
 3. A router sends each scene to the lightest engine that can hold the look and prints the cost before anything runs. HyperFrames for type and graphics, Remotion for 2.5D story films, three.js when the world itself is the story, AI clips only where realism is the point.
 4. For a song, `song_facts.py` measures the tempo, beat grid, energy and word timings first. Nothing is timed by guess.

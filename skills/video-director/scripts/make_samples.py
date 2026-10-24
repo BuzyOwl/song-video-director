@@ -46,7 +46,7 @@ def page():
     tiles = "\n".join(
         f'<figure><video src="{l["clips"][0]}" poster="{l["clips"][0][:-4]}.jpg" data-clips="{",".join(l["clips"])}" muted autoplay loop playsinline></video>'
         f'<figcaption><b>{l["title"]}</b><span>{l["film"]} · {l["engine"]} · cost {l["cost"]}</span>'
-        f'<button data-id="{l["id"]}">Use this look</button></figcaption></figure>' for l in looks.values())
+        f'<button data-id="{l["id"]}">Borrow an idea</button></figcaption></figure>' for l in looks.values())
     (GAL / "index.html").write_text(TEMPLATE.replace("{{TILES}}", tiles), encoding="utf-8")
     print("wrote index.html", len(looks), "looks")
 
@@ -62,8 +62,8 @@ figure{margin:0;background:var(--card);border-radius:10px;overflow:hidden}video{
 figcaption{padding:12px 14px;display:grid;gap:4px}figcaption span{color:var(--dim);font-size:13px}
 button{justify-self:start;margin-top:6px;border:1px solid var(--accent);background:none;color:var(--fg);border-radius:6px;padding:6px 12px;cursor:pointer}
 button.done{background:var(--accent);color:#111}footer{max-width:1200px;margin:28px auto 0;color:var(--dim);font-size:13px}a{color:var(--accent)}
-</style></head><body><header><h1>Pick a look</h1><p>Every tile is a clip from a finished film made with this skill. Tiles with a second clip swap on hover.
-Press <b>Use this look</b> and paste the id into Claude Code, or paste 1-3 links of your own references instead.</p></header>
+</style></head><body><header><h1>What these engines can do</h1><p>Every tile is a clip from a finished film made with this skill. Tiles with a second clip swap on hover.
+Your film gets its own new look. Use these as sparks: press <b>Borrow an idea</b> and tell Claude what you liked, or paste 1-3 references you love.</p></header>
 <main>{{TILES}}</main>
 <footer>More looks: motion-graphics styles in <a href="https://github.com/ItsssssJack/claude-video-2">claude-video-2</a> ·
 36 art-history styles in <a href="https://github.com/alchaincyf/huashu-art-motion">huashu-art-motion</a>.

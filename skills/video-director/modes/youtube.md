@@ -78,7 +78,7 @@ Cross-grammar rules:
 
 ## 4. Thumbnail and upload pack
 - Thumbnail: 1280×720 JPG/PNG, ≤ 2 MB, built from a real film frame picked from a contact sheet. A face with clear
-  emotion, ≤ 3 words that do not repeat the title, the brief's one accent. It must read at 168×94: check it at that size.
+  emotion, ≤ 3 words that do not repeat the title, the look's accent. It must read at 168×94: check it at that size.
 - Title: ≤ 60 characters visible (100 max). It promises what the hook pays off; no bait the video does not deliver.
 - Description: the first 2 lines are the promise + the key link. Then chapters (0:00 first), then credits from
   CREDITS.md and the music licence.
