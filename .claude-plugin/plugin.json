@@ -1,0 +1,10 @@
+{
+  "name": "video-director",
+  "version": "2.0.0",
+  "description": "Direct music videos, talking-head reels and YouTube edits in code: pick a proven look, answer 5 questions, get a film checked from real frames. Remotion / HyperFrames / three.js, plus AI clips guided by Blender blockouts.",
+  "author": { "name": "BuzyOwl" },
+  "homepage": "https://github.com/BuzyOwl/song-video-director",
+  "repository": "https://github.com/BuzyOwl/song-video-director",
+  "license": "MIT",
+  "keywords": ["music-video", "lyric-video", "remotion", "hyperframes", "three.js", "blender", "talking-head", "youtube", "motion-graphics"]
+}

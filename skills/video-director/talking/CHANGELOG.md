@@ -1,0 +1,20 @@
+# talking-head-director changelog
+- 2026-10-08 T1: mediapipe 1.1 + uroman installed; MMS/YuNet/MediaPipe models + fonts fetched to D:; 6 synth SFX exported at -18 dBFS.
+- T2: Silero VAD gate on (min_silence 400 ms, pad 250 ms, threshold 0.4).
+- T3: aligner.py (wav2vec2 EN / MMS-1130 any language via uroman), auto model by language, Hindi filler lists.
+- T4: tracker.py (MediaPipe face+gestures / YuNet), One-Euro, emphasis[] in words.json. prep re-run 31.9s, first run 37.1s (tracker 9.6s of each; stderr still shows MediaPipe C++ W/INFO lines).
+- T5: remotion/ scaffold (4.0.534, fonts via @remotion/fonts, temp on D:), one-frame harness. Still: 52.7 s cold (Chrome download+bundle), 4.8 s warm.
+- T6: Camera.ts (alternate-shot punch, emphasis springs, tail push, overscan, face-centred clamp).
+- T7: Captions.tsx (word-pop, accent keys/numbers, scrim-free shadow+hairline stroke, face-safe y from compile).
+- T8: cards title/lowerthird/stat/quote/list + Panel/big/lane utils.
+- T9: cards cutout/screenshot/arrow/pip.
+- T10: compile.mjs (refs, chunks, face-safe lanes, auto zoom, sfx plan, render), edit-schema.md.
+- T11: verify.py (sheet of encoded final.mp4 + duration check + tmp cleanup), compile.mjs --concurrency N passthrough; benchmark 27.2 s 1080x1920 reel = 67.7 s (concurrency 4), 66.1 s (concurrency 6); target <=90 s met; C: free unchanged (20.63 GB).
+- T12: SKILL.md v2, tech-stack.md renderer notes, memory updated.
+- T13 (final review): Devanagari-safe norm in compile/prep, utf-8 stdout, Devanagari filler lists, aspect guard, shell-free render.
+- Spec deviation: `verify.py` has no separate FACE COVERED check (compile's FACE/CARD OVERLAP warnings replace it).
+- Spec deviation: `screenshot` cards take a local image (`url` capture is not automated).
+- prep speed (test-01, --drop 0,12-13,34,35; before: first 37 s, re-run 31.3 s, 41.9 s noisy): relisten skips CTC aligner unless a filler is heard (aligns only then, for the pass-2 cut times); heard words cached in relisten.json and cut.mp4 encoded lazily + once per spans-hash (cut.key); cut.mp4 now `-preset ultrafast -crf 16`; track.json cached by same hash (+ tracker TW). Identical re-run 1.0 s; cache-cleared run 29.5 s; changed-args run 26.8 s. cut.txt byte-identical, 12 removals, CUT 39.1s -> 26.0s. Timings on this GPU vary +-30 % run to run. TW 320 -> 256 not needed, left at 320.
+- prep speed 2 (test-01, Whisper cached): changed-args run (new --pause) 26.8 s -> 12.1 s; first run with pass 2 22.0 s (was 37 s); benchmark cut.txt still byte-identical. How: (a) fillers pass 2 finds are remembered in fillers.json (source time, valid while words.raw.json is unchanged), so a re-cut with new args needs one pass instead of two; (b) face track of the cut runs in a thread alongside the re-listen (speculative on pass 1, cancelled if pass 2 re-cuts), each cut gets its own cut.<key>.mp4 written atomically and the final one is promoted to cut.mp4; (c) Whisper + aligner session load in a thread while ffmpeg cuts; (d) tracker gestures (3/4 of its time) run in 3 shot-aligned chunks, one recognizer each: track 9.6 s -> 4.8 s, boxes/gestures verified equal to the old tracker.
+- Word-level timestamps: words.raw.json stays as before; re-listen word timestamps (relisten.json) are kept 30 days from creation, then dropped once unused for 7 days (made/used stamps per entry, pruned on each run). fillers.json is not pruned.
+- 2026-10-08 board card + speaker PiP (reels/prompting-techniques): `board` = full-screen slide (n, kicker, title, sub, typed prompt box, rows, chips); Reel.tsx morphs the video into a face-centred circle bubble top-right (scale/centre lerp, log-space circle clip, median face width so it does not breathe) while boards are up; compile keeps caption y over boards. `fix` map in edit.json for Whisper mishears. Fixes: caption pop overlapped neighbours on long words ("OFPROMPTING") -> per-word margin; long titles wrapped flush-left at x=0 -> centred, maxWidth 0.9w.
