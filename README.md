@@ -33,12 +33,12 @@ VD_MODELS=D:\video-director\models
 
 ## How a video gets made
 
-1. You pick a look from a gallery of real clips (`skills/video-director/gallery/index.html`), or paste links to work you love.
+1. You bring one to three videos you love. `film_gate.py` measures their cut rate, stillness and palette, and those numbers seed the brief. No references? Pick a look from a gallery of real clips (`skills/video-director/gallery/index.html`). It remembers what you approved and rejected, so the next project starts closer to your taste.
 2. Claude asks five questions in one message. Every question has a default and "go" accepts them all.
 3. A router sends each scene to the lightest engine that can hold the look and prints the cost before anything runs. HyperFrames for type and graphics, Remotion for 2.5D story films, three.js when the world itself is the story, AI clips only where realism is the point.
 4. For a song, `song_facts.py` measures the tempo, beat grid, energy and word timings first. Nothing is timed by guess.
 5. A grey-box animatic of the whole song gets approved before any art is built.
-6. Three stills are scored on a 100 point rubric. A fresh subagent that never saw the code scores them again and the lower score counts, because self-scores ran about 10 points high when huashu-art-motion measured them.
+6. The signature moment is drawn two contrasting ways and you pick one. Then three stills at the hardest moments are scored on a 100 point rubric. A fresh subagent that never saw the code does the scoring, because self-scores ran about 10 points high when huashu-art-motion measured them.
 7. `film_gate.py` fails a render that freezes for over a second or flickers. It also reports cut rate per section and how far the palette drifted from the brief.
 
 ## Realism without losing control

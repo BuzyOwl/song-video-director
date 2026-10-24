@@ -51,7 +51,7 @@ Render one still before any animation, then place it next to the references:
 |---|---|---|
 | Signature hit | 25 | tick off the must-haves; −5 for each one missing; −5 for each taboo present |
 | Mood and emotion match | 20 | each section reads as its valence/arousal point; the arc reads in 12 muted frames; the deliberate break lands |
-| Feel targets | 15 | the `film_gate.py` SOFT numbers against the feel card (cuts/min, stillness, sync) |
+| Feel targets | 15 | the `film_gate.py` cuts/min and stillness per section, against the feel card bands. Feel-sync is never scored: it read about 0 on every finished film. |
 | Medium credibility | 10 | at a 1:1 crop: a real medium, or vector plus noise? |
 | Composition and story | 10 | the style's own layout logic; the event reads at a glance; thumbnail-size test (160 px wide) still reads |
 | Motion and music sync | 10 | hits on the grid; motion follows the energy; nothing on screen under 0.3 s |

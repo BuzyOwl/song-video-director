@@ -53,6 +53,8 @@ Also plan:
 - **Repeats grow:** chorus 2 keeps chorus 1's motif with new staging (camera, reveal, twist). Never replay it.
 - **Ending in the film's world:** credits happen inside the story (the hero signs the lyric sheet). No reusable credit card.
 
+- **Stillness is declared, never accidental.** A hold or time-freeze goes into `feel.json` `still` spans, with its reason. Even then, keep one thing alive: mist, grain, breath or a flag. A fully frozen frame reads as a bug. (Calibration on our own films found a 7 s frozen tableau and a 10 s freeze where even the mist stopped.)
+
 Mark each timing as measured or estimated.
 
 ## 3. Animatic before art (cheap, catches 80% of problems)
@@ -84,6 +86,7 @@ Render the whole song at 480p as grey boxes plus lyric text plus cut points, wit
 
 ## 6. Package and publish (with the creator)
 - **Thumbnail:**
+  - start from the signature still the user picked in the two-treatments step; it was designed to be the screenshot frame
   - a film frame, frozen at its best state with debug flags
   - the words placed inside the world (ink on a page, a sign)
   - no URLs on it

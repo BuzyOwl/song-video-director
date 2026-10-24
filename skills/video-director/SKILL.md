@@ -19,15 +19,24 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
 
 ## Front door (every mode)
 1. **Setup once:** `python -I $SKILL/scripts/doctor.py`. It checks the tools, then prints the one fix command for anything missing. Heavy temp files go to a big drive: set `VD_TMP` and `VD_MODELS`.
-2. **Pick a look.** Open `$SKILL/gallery/index.html`; every tile is a clip from a finished film. The user answers with a look id, 1–3 reference links, or "you pick". A look id makes `styles/<id>/STYLE.md` law for this piece. References get a new STYLE.md written with `references/style-protocol.md`.
+2. **Pick a look. References beat the gallery.**
+   - Read `~/.video-director/taste.jsonl` if it exists, and pre-pick defaults from the user's past choices and rejections.
+   - Ask first for 1–3 videos the user loves. Measure each: `film_gate.py ref.mp4 --json ref.json` gives cuts/min, stillness and the palette hex values that seed the feel card and STYLE.md (`references/style-protocol.md`).
+   - Otherwise open `$SKILL/gallery/index.html`. Its tiles prove the pipelines work; they are not the taste ceiling. A look id makes `styles/<id>/STYLE.md` law for this piece.
 3. **Five questions in one message,** each with a default. "go" accepts all of them. The mode file lists the questions.
 4. **Route.** Print one line per scene: the engine, why, and the cost (render minutes, token weight, credits). Pick the **lightest engine that passes a frame-first test**. If its first still misses the look, step up one engine. Never start on the heavy one.
 5. **BRIEF.md in numbers:** size, fps, palette hex, fonts with links, easing, plus the **feel card** (`references/feel.md`).
 6. **Storyboard / scene plan.** If any credits will be spent, STOP for an explicit "yes" on the plan and its cost.
-7. **3 stills** at signature moments. Score them with the rubric in `references/style-protocol.md`, fix until they reach 80 or more, then show them with the scores.
+7. **Two treatments, then hard stills.**
+   - Render the signature moment in **2 contrasting treatments**, one still each (literal vs metaphor, or two looks). The user picks one; the cheapest taste decision in the whole job.
+   - Then render 3 stills at **fixed, hardest** moments: the signature moment, the busiest transition, and the densest-text frame. Never the prettiest frames.
+   - Self-check only the facts: the signature checklist and the vetoes.
+   - A fresh reviewer subagent scores the stills on the rubric in `references/style-protocol.md`, because self-scores run about 10 points high. Fix until it scores 80 or more, then show the stills with that score.
 8. **Render** a draft.
 9. **Gates:** `python -I $SKILL/scripts/film_gate.py <mp4> --feel feel.json --song song_facts.json --style STYLE.md`. HARD failures block delivery. SOFT numbers go to the reviewer.
-10. **Independent review:** a fresh subagent that never saw the code scores the stills plus the gate report. The lower score counts. Then render the final and hand off: path, specs, gate results, both scores, and one "next try" idea.
+10. **Independent review of the render:** a fresh subagent that never saw the code scores 12 muted frames plus the gate report. The lower of its score and yours counts.
+    - Render the final and hand off: path, specs, gate results, both scores, and one "next try" idea.
+    - Append one line to `~/.video-director/taste.jsonl`: `{date, mode, look, feel bands used, what the user approved, what they rejected and why}`. Next time, the defaults start from this.
 
 ## Universal rules (each one cost a revision to learn)
 - **Faces:**

@@ -88,6 +88,19 @@ Read this when you're stuck. Each lesson's last line is the transferable move.
   - The pose search rewarded fingers touching paper, so it picked dangling straight fingers. *Read what you rewarded.*
   - Previews used a placeholder pen, so the reviewer judged the placeholder. *Show reviewers the real thing, from 3 angles.*
 
+## Calibrating the gates (v2)
+- **First film_gate run** failed all five finished films:
+  - wipes counted as 1-frame shots
+  - slow drift and 12 fps animation counted as "frozen"
+  - one title bloom counted as flicker
+
+  Fix: diff against the frame 0.5 s earlier, merge spikes within 0.25 s, and count a flash by its onset. *A gate that fails good work gets fixed, not obeyed.*
+- **What the gate still caught** after the fix:
+  - a 7 s fully frozen tableau (BG, around 201 s)
+  - a 10 s time-freeze where even the mist stopped (Himalayan Vow, around 53 s)
+
+  *Our own films are proof the pipelines work, not the taste ceiling.*
+
 ## Tools
 - **Windows:** heredocs and sed eat quotes and backslashes, so write patch scripts to files. A CLI that splits on `=` mangles `front=0.1`.
 - **three.js 0.186:**

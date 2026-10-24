@@ -188,3 +188,23 @@ Verified seed: `sources-verified-2026-10-25.md` (same folder). Key points it car
 - Trigger evals (skill-creator): about 10 prompts across the 3 modes, plus near-misses.
 - A dry run of each mode on a sample input, to confirm the load rule (count the lines read).
 - `song_facts.py --selftest`, and `pacing_check.py` on a known clip.
+
+## Improvement pass (2026-10-25, after build)
+Dropped or changed because they harmed quality:
+- **In-loop self-scoring.** Self-scores run about 10 points high, so iterating on them optimises the wrong number. The scoring now comes from a fresh reviewer subagent at the stills stage and again on the render. The self-check is limited to facts: the signature checklist and the vetoes.
+- **Agent-picked stills.** Stills are now taken at fixed, hardest moments: the signature moment, the busiest transition, the densest-text frame. The agent can no longer pick its prettiest frames.
+- **Feel-sync as a target.** It read about 0 on all five finished films, so it is reported but never scored or gated.
+- **`min_on_screen` as a HARD gate.** It failed every finished film because of 1-frame impact cuts and wipes. It is now SOFT.
+- **Frame-to-frame motion measure.** It called slow drift and 12 fps animation "frozen". The gate now diffs against the frame 0.5 s earlier, merges spikes within 0.25 s, and counts a flash by its onset.
+- **Gallery as the taste baseline.** The user's own films are proof that the pipelines work, not the taste ceiling. References the user loves come first and are measured, and the gallery is the fallback.
+- **Feel bands presented as calibrated.** They are now labelled uncalibrated estimates. A measured reference wins.
+- **Universal ban list and the 6-word cap** (from claude-video-2). They broke lyric videos and cinematic finishes, so each style's own ban list rules instead.
+
+Added:
+- reference teardown via `film_gate.py ref.mp4`, which seeds the feel card and palette
+- two contrasting treatments of the signature moment, the user picks (the cheapest taste decision)
+- a taste memory in `~/.video-director/taste.jsonl` (approvals and rejections) that pre-picks defaults
+- declared stillness: holds and freezes must be listed in `feel.json` with a reason and keep one thing alive
+- the thumbnail starts from the picked signature still
+- AI clips: the draft tier first, and the hardest shot first
+- talking pipeline paths made portable (`VD_TMP`, `VD_MODELS`, `VD_TEST_REEL`)

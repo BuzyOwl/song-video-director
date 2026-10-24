@@ -8,7 +8,9 @@ Words like "sad", "hype" or "dreamy" can't be checked; numbers can. Before any b
 - **Emotion arc:** one line per section, e.g. "numb → cracking → release → quiet acceptance". The arc must read **with the sound off**. If a stranger can't tell the arc from 12 muted frames, the visuals aren't carrying it.
 
 ## 2. Start from the genre band
-These are starting bands, not law. A reference video the user loves beats this table: measure it with `film_gate.py ref.mp4` and use its numbers.
+These are **uncalibrated starting estimates**, not law. Only the gate thresholds were calibrated, on five finished films.
+
+A reference video the user loves beats this table: measure it with `film_gate.py ref.mp4` and use its numbers. Two measured references in the same genre beat one. When a measured band disagrees with this table, the measurement wins, and the table gets updated in a release.
 
 | Genre | Cuts/min | Stillness | Motion | Camera | Palette tendency | Easing | Type |
 |---|---|---|---|---|---|---|---|

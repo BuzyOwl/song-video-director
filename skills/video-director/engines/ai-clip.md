@@ -69,3 +69,7 @@ Write prompts in this order:
 - **Timing:** cut on the beat grid. Speed-ramp at most ±15%; more than that looks synthetic.
 - **Faces:** check every face frame for drift. No text over faces.
 - **Credits:** log the model and the prompt in `CREDITS.md`, and tick AI disclosure.
+
+## Spend credits like a director, not a gambler
+- **Draft tier first:** if the MCP offers a cheaper or shorter mode, prove the prompt there (3–5 s). Re-run on the hero model only once the draft shows the mechanism working.
+- **Generate the hardest shot first.** If it can't be done, the plan changes before the easy shots are paid for.
