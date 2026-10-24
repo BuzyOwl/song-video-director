@@ -2,7 +2,7 @@
 
 Adapted from huashu-art-motion protocol 16 (alchaincyf, MIT). Its finding: a style built from a text description alone came out as the same flat modern illustration with a new palette and noise. And its makers' self-scores ran about 10 points (up to 17) higher than independent review.
 
-Use this protocol whenever the look is new: user references, an art style, or a gallery look pushed somewhere new.
+Use this protocol for every look: every song gets a new one, and every brand look is built with it once.
 
 ## 1. Anchor in real works (never from memory)
 - Gather at least 3 **different** references: the user's links or images, public-domain works (Met Open Access, Wikimedia Commons), or film stills for study only (FILMGRAB).

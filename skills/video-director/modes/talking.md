@@ -23,9 +23,9 @@ python -I $SKILL/talking/scripts/fetch_assets.py
 
 ## The five questions (one message; skip any already answered)
 1. Platform and length target? [Reel / Short, tight: pauses squeezed to 0.18 s]
-2. Captions? Word-pop 1–3 words / none. [word-pop, size 78, accent #FFD23F]
+2. Captions? Word-pop 1–3 words / none. [word-pop, size 78, accent from the look]
 3. Graphics? Auto from what's said / only what you list / none. [auto: literal cards for things named out loud]
-4. Look? A look id from the gallery, or the default clean 2D cards. [default]
+4. Look? Your brand kit (send colours, fonts, logo) or a fresh look designed from your goal and audience. [reuse brand/STYLE.md if it exists, else design fresh from the goal]
 5. Language? English / Hindi / mixed. [auto-detect]
 
 ## 1. Cut

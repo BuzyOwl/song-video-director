@@ -19,10 +19,13 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
 
 ## Front door (every mode)
 1. **Setup once:** `python -I $SKILL/scripts/doctor.py`. It checks the tools, then prints the one fix command for anything missing. Heavy temp files go to a big drive: set `VD_TMP` and `VD_MODELS`.
-2. **Pick a look. References beat the gallery.**
-   - Read `~/.video-director/taste.jsonl` if it exists, and pre-pick defaults from the user's past choices and rejections.
-   - Ask first for 1–3 videos the user loves. Measure each: `film_gate.py ref.mp4 --json ref.json` gives cuts/min, stillness and the palette hex values that seed the feel card and STYLE.md (`references/style-protocol.md`).
-   - Otherwise open `$SKILL/gallery/index.html`. Its tiles prove the pipelines work; they are not the taste ceiling. A look id makes `styles/<id>/STYLE.md` law for this piece.
+2. **Invent the look. Never pick it off a shelf.** Freshness and surprise are the point; the skill guides by goal and never restricts style or method.
+   - **Songs:** every song gets a new look, designed from what this song believes, its tempo and its world. Write it as a new STYLE.md with `references/style-protocol.md`.
+   - **Talking and YouTube:** the user decides the style. Either build it from their brand kit (colours, fonts, logo, tone), or design a completely fresh look from the goal. Save it as `brand/STYLE.md` in their project, so later videos reuse it on purpose.
+   - **Inputs that feed the new look:**
+     - The user's loved references: measure each one with `film_gate.py ref.mp4 --json ref.json` (cuts/min, stillness, palette hex).
+     - `$SKILL/gallery/` and `styles/`: proof of what each engine can do, used as inspiration. Never copy a look unchanged.
+   - **Taste memory:** `~/.video-director/taste.jsonl` records what the user rejected and why, so those mistakes aren't repeated. It never pushes toward repeating a past look.
 3. **Five questions in one message,** each with a default. "go" accepts all of them. The mode file lists the questions.
 4. **Route.** Print one line per scene: the engine, why, and the cost (render minutes, token weight, credits). Pick the **lightest engine that passes a frame-first test**. If its first still misses the look, step up one engine. Never start on the heavy one.
 5. **BRIEF.md in numbers:** size, fps, palette hex, fonts with links, easing, plus the **feel card** (`references/feel.md`).
@@ -36,7 +39,7 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
 9. **Gates:** `python -I $SKILL/scripts/film_gate.py <mp4> --feel feel.json --song song_facts.json --style STYLE.md`. HARD failures block delivery. SOFT numbers go to the reviewer.
 10. **Independent review of the render:** a fresh subagent that never saw the code scores 12 muted frames plus the gate report. The lower of its score and yours counts.
     - Render the final and hand off: path, specs, gate results, both scores, and one "next try" idea.
-    - Append one line to `~/.video-director/taste.jsonl`: `{date, mode, look, feel bands used, what the user approved, what they rejected and why}`. Next time, the defaults start from this.
+    - Append one line to `~/.video-director/taste.jsonl`: `{date, mode, look, feel bands used, what the user approved, what they rejected and why}`. Next time it steers away from the rejections; it never repeats an approved look.
 
 ## Universal rules (each one cost a revision to learn)
 - **Faces:**
@@ -47,7 +50,7 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
   - never crossfade bodies or limbs; step between drawings, or rotate about the joint and swap at the midpoint
   - scale figures by a rigid feature in cm, never by their bounding box
   - feet sit on the floor
-- **One look, one accent colour.** The style's own ban list applies. There is no global ban list.
+- **One coherent look per piece, invented for it.** A song's look may evolve section by section. The piece's own STYLE.md sets its rules: colours, accents, bans. There is no global style ban list, and no engine or rule may cap a look. If the light engine can't reach the look, step up an engine; never water the look down.
 - **Every effect says something:** name its meaning in one line or cut it. Quiet sections stay still so the peaks land. Repeats grow: keep the motif, restage it.
 - **Borrow the mechanism, not the energy.** Re-derive motion from this song's tempo and emotion.
 - **Determinism:** every frame is f(t). No Math.random, no Date.now, no timers.
