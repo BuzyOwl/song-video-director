@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 // compile.mjs — <work>/edit.json -> <work>/props.json -> npx remotion render. Every word ref, lane and
 // zoom is resolved here so the renderer is a pure function of props.
-import {readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync} from 'node:fs';
-import {execFileSync} from 'node:child_process';
+import {readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, readdirSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync, execSync} from 'node:child_process';
 import path from 'node:path';
 import os from 'node:os';
 import {fileURLToPath} from 'node:url';
@@ -98,7 +99,7 @@ export const compile = (work, edit, inject = {}) => {
       lanes.push({id, s, e, y, h: hh});
     }
     const base = {id, s, e, y};
-    const asset = (src) => { if (!src) throw new Error(`${id}: src required`); const dst = `job/${path.basename(src)}`;
+    const asset = (src, name = path.basename(src)) => { if (!src) throw new Error(`${id}: src required`); const dst = `job/${name}`;
       mkdirSync(path.join(REM, 'public', 'job'), {recursive: true}); copyFileSync(path.join(work, src), path.join(REM, 'public', dst)); return dst; };
     switch (c.type) {
       case 'title': p.cards.push({...base, type: 'title', text: c.text, size: c.size}); sfx(s, 'pop', 0.5); break;
@@ -110,7 +111,11 @@ export const compile = (work, edit, inject = {}) => {
       case 'cutout': p.cards.push({...base, type: 'cutout', src: asset(c.src), motion: c.motion ?? 'drift', frame: c.frame ?? 'torn'}); sfx(s, 'whoosh', 0.35); break;
       case 'screenshot': p.cards.push({...base, type: 'screenshot', src: asset(c.src), pan: c.pan ?? 'down'}); sfx(s, 'whoosh', 0.3); break;
       case 'pip': p.cards.push({...base, type: 'pip', src: asset(c.src), corner: c.corner ?? 'tr'}); sfx(s, 'pop', 0.4); break;
-      case 'board': { const tm = ([text, ref]) => ({text, t: at(ref)});
+      case 'board': if (c.html) {   // HyperFrames board: HTML project rendered to an MP4 that plays under the PiP bubble
+        const mp4 = hfBoard(work, c.html, at, s, e, c.sync, inject.hf !== false);
+        p.cards.push({...base, type: 'board', clip: inject.hf === false ? `job/${id}.mp4` : asset(mp4, `${id}.mp4`), title: '', prompt: [], rows: [], chips: []});
+        sfx(s, 'whoosh', 0.3); break;
+      } else { const tm = ([text, ref]) => ({text, t: at(ref)});
         const prompt = (c.prompt ?? []).map(tm), rows = (c.rows ?? []).map(([label, text, ref]) => ({label, ...tm([text, ref])}));
         const chips = (c.chips ?? []).map((x, j) => typeof x === 'string' ? {text: x, t: s + 0.35 + j * 0.07} : tm(x));  // bare strings cascade in
         p.cards.push({...base, type: 'board', n: c.n, kicker: c.kicker, title: c.title, sub: c.sub, prompt, rows, label: c.label, chips});
@@ -125,13 +130,33 @@ export const compile = (work, edit, inject = {}) => {
   return p;
 };
 
+// sync {"#el": wordRef} -> <dir>/sync.js `window.__sync = {"#el": seconds from board start}` (word start + 0.05: lands on
+// the word, never before it). Renders <dir>/board.mp4 with HyperFrames only when the project's sources changed (board.key).
+export const hfBoard = (work, html, at, s, e, sync = {}, render = true) => {
+  const dir = path.join(work, html);
+  const cues = Object.fromEntries(Object.entries(sync).map(([sel, ref]) => [sel, +Math.max(0, at(ref) - s + 0.05).toFixed(3)]));
+  writeFileSync(path.join(dir, 'sync.js'), `window.__sync = ${JSON.stringify(cues)};\n`);
+  const root = readFileSync(path.join(dir, 'index.html'), 'utf8');
+  const d = +(/data-duration="([\d.]+)"/.exec(root)?.[1] ?? 0);
+  if (Math.abs(d - (e - s)) > 0.05) console.warn(`HF DURATION ${html}: root data-duration ${d} but board span is ${(e - s).toFixed(2)} s`);
+  const srcs = readdirSync(dir, {recursive: true}).map(String).filter((f) => /\.(html|js|css|json)$/.test(f) && !/^(\.|renders[\\/]|node_modules[\\/])/.test(f)).sort();
+  const key = createHash('sha1').update(srcs.map((f) => f + readFileSync(path.join(dir, f), 'utf8')).join('\0')).digest('hex');
+  const keyFile = path.join(dir, 'board.key');
+  if (render && !(existsSync(path.join(dir, 'board.mp4')) && existsSync(keyFile) && readFileSync(keyFile, 'utf8') === key)) {
+    execSync('npx -y hyperframes render --quality delivery --output board.mp4',   // fixed string: npx is a .cmd on Windows
+      {cwd: dir, stdio: 'inherit', env: {...process.env, HYPERFRAMES_NO_TELEMETRY: '1', TEMP: TMP, TMP}});
+    writeFileSync(keyFile, key);
+  }
+  return path.join(html, 'board.mp4');
+};
+
 const main = () => {
   const [editPath, ...flags] = process.argv.slice(2);
   if (!editPath) { console.error('usage: node compile.mjs <work>/edit.json [--preview] [--range a:b] [--no-render]'); process.exit(2); }
   const work = path.resolve(path.dirname(editPath));
   const edit = JSON.parse(readFileSync(editPath, 'utf8'));
   const preview = flags.includes('--preview') || flags.includes('--range');
-  const p = compile(work, edit);
+  const p = compile(work, edit, {hf: !flags.includes('--no-render')});
   writeFileSync(path.join(work, 'props.json'), JSON.stringify(p));
   if (flags.includes('--no-render')) return;
   mkdirSync(TMP, {recursive: true});
@@ -150,4 +175,4 @@ const main = () => {
   } finally { rmSync(path.join(REM, 'public', 'job'), {recursive: true, force: true}); }
 };
 const same = (a, b) => path.resolve(a).toLowerCase() === path.resolve(b).toLowerCase();
-if (process.argv[1] && same(fileURLToPath(import.meta.url), process.argv[1])) main();
+if (process.argv[1] && same(fileURLToPath(import.meta.url), process.argv[1])) main();

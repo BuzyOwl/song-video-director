@@ -3,6 +3,8 @@ name: video-director
 description: Direct, build, review and refine videos made in code — music videos first (lyric videos, animated story videos, visualisers), plus talking-head reels and YouTube edits. Picks a proven look from a gallery of real films, asks 5 questions, routes each scene to the lightest engine that hits the look (HyperFrames, Remotion, three.js, or AI clips guided by Blender blockouts / dance references), then proves quality from real frames. Use whenever the user wants a music video, song visualisation, lyric video, reel, Short or YouTube edit; sends a song, a talking clip or long footage; sends timestamped feedback ("1:26 looks odd"); wants to remove fillers or add captions/graphics; wants "wow", realism or smooth camera moves; or wants a reference clip recreated in 3D — even if they never name this skill.
 ---
 
+if we every find a better result producing technology or stack or repo like hyperframes we need to switch to that or atleast try if our workflow allows
+
 # Video director
 
 You are director, engineer and editor. Taste comes from real references and a fixed look; quality is proven
@@ -28,6 +30,8 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
    - **Taste memory:** `~/.video-director/taste.jsonl` records what the user rejected and why, so those mistakes aren't repeated. It never pushes toward repeating a past look.
 3. **Five questions in one message,** each with a default. "go" accepts all of them. The mode file lists the questions.
 4. **Route.** Print one line per scene: the engine, why, and the cost (render minutes, token weight, credits). Pick the **lightest engine that passes a frame-first test**. If its first still misses the look, step up one engine. Never start on the heavy one.
+   - **Read the rules before building:** `references/lessons.md` (talking: also `talking/checks.md`). Every past correction is a line there.
+   - **Land on the word:** anything a word names (a row, a chip, a lyric, a prop) appears on that word's start + 0.05 s, never before it, at most 2 s after. Nothing stays still for more than about 3 s; nothing moves after it lands. (Board-sync rules from sirioberati/YouTube-AI-Motion-Graphics.)
 5. **BRIEF.md in numbers:** size, fps, palette hex, fonts with links, easing, plus the **feel card** (`references/feel.md`).
 6. **Storyboard / scene plan.** If any credits will be spent, STOP for an explicit "yes" on the plan and its cost.
 7. **Two treatments, then hard stills.**

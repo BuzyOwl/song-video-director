@@ -88,6 +88,7 @@ Read this when the user asks where to get assets or references, or when a scene 
 | Unreal 5.8 MCP (official, experimental) | UE plugin | only for the recreate engine's UE branch |
 | Remotion | `npx skills add remotion-dev/skills` (5.6k★); `@remotion/mcp` is docs lookup only | |
 | HyperFrames | `npx skills add heygen-com/hyperframes` (71.4k★) | includes /music-to-video |
+| sirioberati/YouTube-AI-Motion-Graphics | `git clone` (MIT) | 74 HTML+GSAP explainer boards, board-sync rules, checks.md habit |
 
 ## MCP shortlist (ranked)
 1. mcp-for-blender

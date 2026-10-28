@@ -5,7 +5,8 @@
 **Stack:**
 - Python cut: faster-whisper, Silero VAD, a wav2vec2/MMS aligner and MediaPipe.
 - You write one `edit.json`.
-- Remotion renders a curated card set.
+- Remotion renders the cut, zooms, PiP bubble, captions and a curated card set.
+- HyperFrames renders full-screen boards (HTML + GSAP), which play under the bubble.
 - `verify.py` makes a contact sheet from the encoded file.
 
 **Details:**
@@ -64,6 +65,8 @@ python -I $SKILL/talking/scripts/prep.py "<video>" <work> [--drop 0,12-13] [--ke
 - `arrow` / `circle` / `underline`
 - `pip`: an image in a corner
 - `board`: a full-screen slide; the speaker shrinks into a PiP bubble
+  - built-in layout: `title`, `prompt`, `rows`, `chips`
+  - HyperFrames board: `"html": "boards/<name>"` + `"sync": {"#el": "word#n"}`. Start from `$SKILL/talking/assets/hf-board/` and read `talking/references/boards.md` (safe zones, sync rules). Compile writes `sync.js`, runs `hyperframes render` (cached by a source hash) and plays `board.mp4` under the bubble. Run `npx hyperframes check --json` in the board folder first.
 
 **Whisper mishears:** go in `fix`.
 
@@ -98,7 +101,7 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 - **Cuts land in silence:** energy decides and VAD gates. Never widen a snap window past about 50 ms.
 - **Faces:** uniform scale and shift only. Compile enforces the lanes.
 - **Type:** one caption lane, one card lane, accents from the look, ≥ 70 px at 1080 wide.
-- **New graphic:** a new card in `remotion/src/cards`, never per-clip HTML.
+- **New graphic:** small (lower-third size) = a new card in `remotion/src/cards`; slide-sized = a HyperFrames board project.
 - **After touching the cut logic:** `python -I $SKILL/talking/scripts/test_prep.py`.
 - **Honest limits:**
   - aligner edges are ±30–50 ms and not ear-checked
@@ -108,3 +111,4 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 1. Take the timestamp and run `--range a:b --preview`.
 2. Name the cause: a word ref, a lane, the face box or the zoom.
 3. If it can recur, fix it in compile.mjs. If it's one moment, fix it in edit.json.
+4. Add the lesson to `$SKILL/talking/checks.md` as `- DO / DON'T: rule (reel that taught it)`.

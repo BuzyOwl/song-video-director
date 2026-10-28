@@ -13,7 +13,7 @@ export type Card =
   | (CardBase & {type: 'arrow'; from: [number, number]; to: [number, number]; shape: 'arrow' | 'circle' | 'underline'})
   | (CardBase & {type: 'pip'; src: string; corner: 'tl' | 'tr' | 'bl' | 'br'})
   | (CardBase & {type: 'board'; n?: string; kicker?: string; title: string; sub?: string; prompt: Timed[];
-      rows: (Timed & {label: string})[]; label?: string; chips: Timed[]});  // full-screen slide; the speaker shrinks to a PiP bubble
+      rows: (Timed & {label: string})[]; label?: string; chips: Timed[]; clip?: string});  // full-screen slide; the speaker shrinks to a PiP bubble; clip = HyperFrames render
 export type Timed = {text: string; t: number};
 export type Sfx = {t: number; name: 'pop' | 'hit' | 'whoosh' | 'tick' | 'riser' | 'ding'; gain: number};
 export type ReelProps = {
