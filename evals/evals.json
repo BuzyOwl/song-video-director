@@ -1,0 +1,564 @@
+{
+ "skill_name": "video-director",
+ "evals": [
+  {
+   "id": 1,
+   "prompt": "Make a music video for a slow Hindi ballad about a map torn between two people. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with ballad bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-12 and stillness near 0.3-0.55, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 2,
+   "prompt": "Make a music video for a slow Hindi ballad about a map torn between two people. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with ballad bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-12 and stillness near 0.3-0.55, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 3,
+   "prompt": "Make a music video for a slow Hindi ballad about a map torn between two people. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with ballad bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-12 and stillness near 0.3-0.55, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 4,
+   "prompt": "Make a music video for a 98 BPM rap about a generalist who refuses one title. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with hip-hop bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 18-40 and stillness near 0.05-0.15, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 5,
+   "prompt": "Make a music video for a 98 BPM rap about a generalist who refuses one title. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with hip-hop bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 18-40 and stillness near 0.05-0.15, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 6,
+   "prompt": "Make a music video for a 98 BPM rap about a generalist who refuses one title. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with hip-hop bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 18-40 and stillness near 0.05-0.15, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 7,
+   "prompt": "Make a music video for a 128 BPM festival track with a long build and a drop at 1:05. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with EDM bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 10-60 and stillness near 0.0-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 8,
+   "prompt": "Make a music video for a 128 BPM festival track with a long build and a drop at 1:05. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with EDM bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 10-60 and stillness near 0.0-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 9,
+   "prompt": "Make a music video for a 128 BPM festival track with a long build and a drop at 1:05. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with EDM bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 10-60 and stillness near 0.0-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 10,
+   "prompt": "Make a music video for a 72 BPM lo-fi loop about studying at 3 a.m.. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with lo-fi bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 1-6 and stillness near 0.5-0.8, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 11,
+   "prompt": "Make a music video for a 72 BPM lo-fi loop about studying at 3 a.m.. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with lo-fi bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 1-6 and stillness near 0.5-0.8, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 12,
+   "prompt": "Make a music video for a 72 BPM lo-fi loop about studying at 3 a.m.. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with lo-fi bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 1-6 and stillness near 0.5-0.8, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 13,
+   "prompt": "Make a music video for a garage-rock song about leaving a small town. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with rock bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 15-35 and stillness near 0.05-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 14,
+   "prompt": "Make a music video for a garage-rock song about leaving a small town. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with rock bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 15-35 and stillness near 0.05-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 15,
+   "prompt": "Make a music video for a garage-rock song about leaving a small town. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with rock bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 15-35 and stillness near 0.05-0.2, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 16,
+   "prompt": "Make a music video for a Shiva bhajan with harmonium and rising chorus. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with devotional bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-10 and stillness near 0.3-0.5, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 17,
+   "prompt": "Make a music video for a Shiva bhajan with harmonium and rising chorus. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with devotional bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-10 and stillness near 0.3-0.5, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 18,
+   "prompt": "Make a music video for a Shiva bhajan with harmonium and rising chorus. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with devotional bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 4-10 and stillness near 0.3-0.5, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 19,
+   "prompt": "Make a music video for a bright 118 BPM pop song about a summer crush. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with pop bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 14-30 and stillness near 0.1-0.25, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 20,
+   "prompt": "Make a music video for a bright 118 BPM pop song about a summer crush. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with pop bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 14-30 and stillness near 0.1-0.25, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 21,
+   "prompt": "Make a music video for a bright 118 BPM pop song about a summer crush. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with pop bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 14-30 and stillness near 0.1-0.25, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 22,
+   "prompt": "Make a music video for an orchestral score piece for a short-film trailer. The feeling should be despairing. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with cinematic bands adjusted for a despairing mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 6-14 and stillness near 0.2-0.4, unless a user reference was measured",
+    "each section has valence/arousal; the despairing mood shows as valence below -0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 23,
+   "prompt": "Make a music video for an orchestral score piece for a short-film trailer. The feeling should be bittersweet. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with cinematic bands adjusted for a bittersweet mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 6-14 and stillness near 0.2-0.4, unless a user reference was measured",
+    "each section has valence/arousal; the bittersweet mood shows as valence between -0.3 and 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 24,
+   "prompt": "Make a music video for an orchestral score piece for a short-film trailer. The feeling should be euphoric. Song file: song.mp3",
+   "expected_output": "Music mode front door; feel card with cinematic bands adjusted for a euphoric mood; plan only, no credits spent.",
+   "files": [],
+   "expectations": [
+    "Reads modes/music.md and at most two engine files; does not read every reference file",
+    "Asks for 1-3 loved reference videos first (and offers to measure them with film_gate.py); shows the gallery as fallback",
+    "Asks the five music questions in ONE message with defaults",
+    "Plans 2 contrasting treatments of the signature moment as single stills before committing to one",
+    "Uses a fresh reviewer subagent for rubric scores, not a self-score",
+    "Runs or plans song_facts.py before planning scenes",
+    "feel card cuts/min bands sit inside or within 25% of 6-14 and stillness near 0.2-0.4, unless a user reference was measured",
+    "each section has valence/arousal; the euphoric mood shows as valence above 0.3 in most sections",
+    "names exactly one deliberate genre break with a reason",
+    "router picks the lightest engine and justifies any heavier one in one line",
+    "plans an animatic or frame-first still before full build",
+    "no veto in the plan: no text over faces, no strobe in a low-arousal sad section, no global ban list applied over the style",
+    "states lyric timing as machine-aligned / not ear-checked"
+   ]
+  },
+  {
+   "id": 25,
+   "prompt": "Here's a 40 s selfie clip of me explaining my course, there's music in the background. Cut the ums and add captions.",
+   "expected_output": "Correct routing; no wasted engine; gates respected.",
+   "files": [],
+   "expectations": [
+    "routes to talking mode, not music",
+    "uses talking/scripts/prep.py with -I",
+    "asks the five talking questions in one message"
+   ]
+  },
+  {
+   "id": 26,
+   "prompt": "Quick lyric video for my song, just words on a nice background, need it today.",
+   "expected_output": "Correct routing; no wasted engine; gates respected.",
+   "files": [],
+   "expectations": [
+    "routes to HyperFrames (lightest) or suggests a browser lyric tool",
+    "does not start three.js or AI clips",
+    "keeps the front door short"
+   ]
+  },
+  {
+   "id": 27,
+   "prompt": "Edit this 18 minute tutorial recording for YouTube with chapters and b-roll.",
+   "expected_output": "Correct routing; no wasted engine; gates respected.",
+   "files": [],
+   "expectations": [
+    "routes to youtube mode",
+    "plans a hook in 0-5 s and chapters",
+    "reuses the talking cut step for fillers"
+   ]
+  },
+  {
+   "id": 28,
+   "prompt": "Recreate this 10 s AI clip of a pirate cabin as a real 3D scene and fly the camera through it on the beat.",
+   "expected_output": "Correct routing; no wasted engine; gates respected.",
+   "files": [],
+   "expectations": [
+    "loads engines/recreate.md (Blender default)",
+    "writes REFERENCE.md breakdown first",
+    "locks camera/composition in blockout before detail"
+   ]
+  },
+  {
+   "id": 29,
+   "prompt": "Make my character dance like this TikTok clip for the chorus, realistic.",
+   "expected_output": "Correct routing; no wasted engine; gates respected.",
+   "files": [],
+   "expectations": [
+    "loads engines/guide-3d.md and engines/ai-clip.md",
+    "raises rights/permission for the dance footage",
+    "shows a shot table with credit estimate and STOPS for an explicit yes"
+   ]
+  }
+ ]
+}

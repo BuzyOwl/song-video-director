@@ -1,0 +1,11 @@
+{
+  "name": "buzyowl",
+  "owner": { "name": "BuzyOwl" },
+  "plugins": [
+    {
+      "name": "video-director",
+      "source": "./",
+      "description": "Music videos first, plus talking-head reels and YouTube edits, directed and rendered in code."
+    }
+  ]
+}
