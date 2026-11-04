@@ -15,6 +15,7 @@ SOFT (INFO, never fails)
   feel_sync  Pearson r, motion vs audio energy at phrase scale (8 s smoothing; frame-level r was ~0 on every finished film)
   palette    k-means k=6 in CIE Lab, weighted mean dE76 to the nearest STYLE.md #RRGGBB; saturated accent hue count
   beat_hits  share of cuts within +-1 frame of a song_facts beat, and share landing 1-2 frames before one
+  delivery   bt709 primaries/trc/matrix tags, constant frame rate, audio start minus video start in ms
 Frame difference = mean abs diff in 0..255, max of gray (160 px wide) and RGB thumbnail (32x18, catches isoluminant cuts).
 """
 import argparse, collections, json, re, subprocess, sys
@@ -34,6 +35,19 @@ def probe(path):
                           'stream=r_frame_rate,width,height', '-of', 'json', path], capture_output=True, check=True).stdout
     st = json.loads(out)['streams'][0]; num, den = map(int, st['r_frame_rate'].split('/'))
     return st['r_frame_rate'], num / den, st['width'], st['height']
+
+
+def delivery(path):
+    """Container facts that silently break a delivery: colour tags, VFR, A/V start offset."""
+    out = subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type,start_time,avg_frame_rate,'
+                          'r_frame_rate,color_primaries,color_transfer,color_space', '-of', 'json', path],
+                         capture_output=True, check=True).stdout
+    st = json.loads(out)['streams']
+    v = next(s for s in st if s['codec_type'] == 'video'); a = next((s for s in st if s['codec_type'] == 'audio'), None)
+    num = lambda x: float(x) if x not in (None, 'N/A') else 0.0
+    tags = [v.get(k, 'unknown') for k in ('color_primaries', 'color_transfer', 'color_space')]
+    return {'bt709': tags == ['bt709'] * 3, 'tags': '/'.join(tags), 'cfr': v['avg_frame_rate'] == v['r_frame_rate'],
+            'av_offset_ms': r3((num(a.get('start_time')) - num(v.get('start_time'))) * 1000) if a else None}
 
 
 def frames(path, rate, scale, pix, size):
@@ -208,6 +222,7 @@ def gate(path, feel, song, style, loop):
             g = beats[np.abs(beats[None] - tc[:, None]).argmin(1)] - tc          # nearest beat minus cut time
             on = (np.abs(g) <= 1 / fps + 1e-6).mean(); early = ((g > 1e-6) & (g <= 2 / fps + 1e-6)).mean()
         soft['beat_hits'] = {'on_beat': r3(on), 'early_1_2f': r3(early), 'cuts': len(tc), 'beats': len(beats)}
+    soft['delivery'] = delivery(path)
     return {'video': path, 'fps': r3(fps), 'duration_s': r3(dur), 'hard': hard, 'soft': soft,
             'pass': all(v['pass'] for v in hard.values())}
 

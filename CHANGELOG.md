@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 (2026-11-05)
+- New `craft/` layer, loaded one file at a time: story, camera, motion, timing, blocking, light, render, team. Camera, motion, timing, blocking, light, render and team are adapted from Imaginative-Prompting/claude-video-skills (MIT); story comes from the author's film-cinematographer skill.
+- New film mode for animated shorts, cutscenes and narrated story films (script or VO as the clock, blocking first, shot by shot).
+- Fixes from measured evidence: no `concat -c copy` joins (21 ms drift, dropped frames); render muted and mux the WAV (Remotion AAC ~43 ms late); Whisper word times are for which word, not when (0.5-0.8 s early on sung vocals).
+- `film_gate.py` reports delivery facts (BT.709 tags, constant frame rate, A/V start offset), with a test.
+
 ## 2.0.0 (2026-10-25)
 - Renamed to the `video-director` plugin. One hub skill, lazy modes (music, talking, youtube) and engines (code, ai-clip, guide-3d, recreate).
 - Front door: gallery of real film clips, five questions in one message, router with cost per scene, animatic before art.

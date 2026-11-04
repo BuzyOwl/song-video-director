@@ -1,6 +1,6 @@
 ---
 name: video-director
-description: Direct, build, review and refine videos made in code — music videos first (lyric videos, animated story videos, visualisers), plus talking-head reels and YouTube edits. Picks a proven look from a gallery of real films, asks 5 questions, routes each scene to the lightest engine that hits the look (HyperFrames, Remotion, three.js, or AI clips guided by Blender blockouts / dance references), then proves quality from real frames. Use whenever the user wants a music video, song visualisation, lyric video, reel, Short or YouTube edit; sends a song, a talking clip or long footage; sends timestamped feedback ("1:26 looks odd"); wants to remove fillers or add captions/graphics; wants "wow", realism or smooth camera moves; or wants a reference clip recreated in 3D — even if they never name this skill.
+description: Direct, build, review and refine videos made in code — music videos (lyric videos, animated story videos, visualisers), animated shorts, cutscenes and narrated story films, talking-head reels and YouTube edits. Invents a fresh look, asks 5 questions, routes each scene to the lightest engine that hits it (HyperFrames, Remotion, three.js, or AI clips guided by Blender blockouts), plans story and shots, blocks with stand-ins, then proves quality from real frames. Use whenever the user wants a music video, lyric video, animated short, cutscene, reel, Short or YouTube edit; sends a song, script, talking clip or long footage; sends timestamped feedback ("1:26 looks odd"); wants fillers removed or captions/graphics added; complains a camera looks bland, floaty or game-like, motion pops in or looks stiff, words land early or late, a render flickers, blanks, drifts out of sync or shifts colour; wants to run several sessions on one video or set up a review page; or wants a reference clip recreated in 3D — even if they never name this skill.
 ---
 
 if we every find a better result producing technology or stack or repo like hyperframes we need to switch to that or atleast try if our workflow allows
@@ -11,13 +11,26 @@ You are director, engineer and editor. Taste comes from real references and a fi
 from frames, never from code. `$SKILL` = this folder. Each piece gets its own work folder; never build in `$SKILL`.
 
 ## Load rule (token budget)
-Read this file, then **one mode** and **at most two engines**. Read `references/*` only when the step names it.
+Read this file, then **one mode**, **at most two engines**, and only the **craft** files the current step needs
+(one or two at a time). Read `references/*` only when the step names it. A bare craft question ("my render flickers",
+"the camera feels floaty") needs no mode: load just that craft file.
 | Input | Mode | | Need | Engine file |
 |---|---|---|---|---|
 | a song | `modes/music.md` | | anything rendered in code | `engines/code.md` |
-| a talking clip (< 3 min, reel/Short) | `modes/talking.md` | | realism / AI clips | `engines/ai-clip.md` |
-| long footage or narration | `modes/youtube.md` | | camera or dance guidance for AI clips | `engines/guide-3d.md` |
-| | | | recreate a reference clip | `engines/recreate.md` |
+| a script, VO or score (short, cutscene, story) | `modes/film.md` | | realism / AI clips | `engines/ai-clip.md` |
+| a talking clip (< 3 min, reel/Short) | `modes/talking.md` | | camera or dance guidance for AI clips | `engines/guide-3d.md` |
+| long footage or narration | `modes/youtube.md` | | recreate a reference clip | `engines/recreate.md` |
+
+| Craft need | File |
+|---|---|
+| what each shot is for: beats, shot list, coverage, transitions with meaning | `craft/story.md` |
+| camera moves, framing in numbers, continuous-camera transitions, balance, smoothness probes | `craft/camera.md` |
+| anything that moves: easing, anticipation/settle, follow-through, impacts, nothing pops in | `craft/motion.md` |
+| stems, word onsets, beat grid, kick shake, "early / late" | `craft/timing.md` |
+| previs with stand-ins, directing shot by shot, scene specs and handoff | `craft/blocking.md` |
+| 3D materials, lighting, glow, colour in the film's light | `craft/light.md` |
+| drafts vs finals, joins, mux, BT.709, flicker / pop / blank / jitter / clipping checks | `craft/render.md` |
+| several sessions on one video, overnight runs, verbatim note relays, the review page | `craft/team.md` |
 
 ## Front door (every mode)
 1. **Setup once:** `python -I $SKILL/scripts/doctor.py`. It checks the tools, then prints the one fix command for anything missing. Heavy temp files go to a big drive: set `VD_TMP` and `VD_MODELS`.
@@ -39,7 +52,7 @@ Read this file, then **one mode** and **at most two engines**. Read `references/
    - Then render 3 stills at **fixed, hardest** moments: the signature moment, the busiest transition, and the densest-text frame. Never the prettiest frames.
    - Self-check only the facts: the signature checklist and the vetoes.
    - A fresh reviewer subagent scores the stills on the rubric in `references/style-protocol.md`, because self-scores run about 10 points high. Fix until it scores 80 or more, then show the stills with that score.
-8. **Render** a draft.
+8. **Render** a draft: picture muted, then mux the master WAV; frame-exact joins, BT.709 tags (`craft/render.md`). Post it with its known issues on top (review page, `craft/team.md`), then fix.
 9. **Gates:** `python -I $SKILL/scripts/film_gate.py <mp4> --feel feel.json --song song_facts.json --style STYLE.md`. HARD failures block delivery. SOFT numbers go to the reviewer.
 10. **Independent review of the render:** a fresh subagent that never saw the code scores 12 muted frames plus the gate report. The lower of its score and yours counts.
     - Render the final and hand off: path, specs, gate results, both scores, and one "next try" idea.

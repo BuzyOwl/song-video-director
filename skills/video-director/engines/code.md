@@ -45,8 +45,10 @@ Their API rules beat any memory of them. This file only adds what our films taug
 - **Commands:**
   - stills for review: `npx remotion still <Comp> --frame N` (bundle once with `--bundle`, reuse it)
   - render: `npx remotion render <Comp> out.mp4 --concurrency=4`
-- **Tail render for small changes:** render only `--frames a-b`, then join:
-  `ffmpeg -f concat -safe 0 -i list.txt -c copy out.mp4`. Cut at a keyframe, or re-encode the joint second.
+- **Tail render for small changes:** render only `--frames a-b` (pre-roll ~12 frames and drop them), then join by
+  decoding and encoding once, never `concat -c copy` (stream copy started a part 21 ms late and dropped/repeated
+  frames). Exact command and seam check: `craft/render.md`.
+- **Audio:** render the picture muted and mux the master WAV from 0 (Remotion's AAC measured 42.7 ms late).
 
 ## three.js specifics
 - One renderer. Transitions composite two scenes in linear HDR **before** bloom, so wipe lines glow.

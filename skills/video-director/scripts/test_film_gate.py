@@ -66,6 +66,15 @@ def main():
     p = gate(red, '--style', j('red.md'))['soft']['palette']
     assert p['mean_dE'] < 5, p
     print(f"PASS 5 palette: mean dE {p['mean_dE']} < 5")
+
+    # 6. delivery: untagged, silent file fails bt709; tagged file with audio muxed from 0 passes, offset ~0
+    dv = gate(ts)['soft']['delivery']
+    assert not dv['bt709'] and dv['av_offset_ms'] is None and dv['cfr'], dv
+    tag = ff(j('tag.mp4'), *lav('testsrc2=size=320x180:rate=24'), *lav('sine=f=440:r=48000'), '-t', '2',
+             '-vf', 'setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709', '-c:a', 'aac')
+    dv = gate(tag)['soft']['delivery']
+    assert dv['bt709'] and dv['cfr'] and abs(dv['av_offset_ms']) < 50, dv
+    print(f"PASS 6 delivery: untagged fails bt709, tagged passes, offset {dv['av_offset_ms']} ms")
     shutil.rmtree(d, ignore_errors=True)   # kept on failure for inspection
     print('all film_gate tests passed')
 

@@ -31,7 +31,11 @@ Then:
   - **A1** single source
   - **E** estimate
 - **Mixed scripts** (Hindi + English): two passes, or the creator's start list. Place an unmatched word between its matched neighbours (sandwich), and break ties with the voice onset.
-- **Full mix:** separate vocals first (audio-separator, Mel-Band RoFormer), then align the stem.
+- **Full mix:** separate vocals first (audio-separator, Mel-Band RoFormer), then align the stem. For Suno songs, ask
+  before spending credits on Suno's own stems; they beat any splitter.
+- **Whisper tells you *which* word, not *when*:** on sung vocals its word times ran 0.5–0.8 s early. A word that a
+  visual lands on gets its onset snapped on the vocal stem's spectrogram and tagged **M** (`craft/timing.md` section 2).
+  Beats come from the drum stem's audio onsets, not drum MIDI.
 - **Sections:** read them off the energy curve. Breakdowns show low energy and no kicks.
 
 **Tempo sets the motion language:**

@@ -1,6 +1,6 @@
 # video-director
 
-A Claude Code plugin that directs music videos in code. It also edits talking-head reels and YouTube videos.
+A Claude Code plugin that directs music videos in code. It also makes animated shorts and cutscenes, and edits talking-head reels and YouTube videos.
 
 It grew out of five films made with Claude Code: a p5.js cut-out comedy, a Hindi ballad in Remotion and WebGL, a Hindi rap built by seven parallel agents in three.js, an art-history piece that walks through famous paintings, and a Himalayan mist piece. Each one cost several revisions. The lessons from those revisions are now rules and checks in this plugin.
 
@@ -54,7 +54,8 @@ You can also hand it a real clip and get it rebuilt as a 3D scene (method adapte
 | Path | What it is |
 |---|---|
 | `skills/video-director/SKILL.md` | the hub: front door, router, rules, feedback loop |
-| `modes/` | music, talking (the full talking-head pipeline), youtube |
+| `modes/` | music, film (shorts, cutscenes, narrated stories), talking (the full talking-head pipeline), youtube |
+| `craft/` | story, camera, motion, timing, blocking, light, render, team: one file per craft, loaded only when a step needs it |
 | `engines/` | code, ai-clip, guide-3d, recreate |
 | `references/` | feel bands per genre and mood, style protocol and rubric, lessons, verified free sources and MCPs |
 | `styles/` | five looks, each a spec another agent can build from |
@@ -65,7 +66,7 @@ Claude reads the hub, one mode and at most two engines per job, about 330 lines.
 
 ## Credits
 
-Built on ideas from [claude-video-2](https://github.com/ItsssssJack/claude-video-2) (gallery-first flow, brief in numbers), [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) (style protocol, rubric, explainer grammars, anti-slideshow gate; MIT), [MVP-Prompts](https://github.com/mattvideoproductions/MVP-Prompts) (video-to-unreal, Seedance prompting guide) and gokaygokay's video-to-shader method. Full list with licenses in `CREDITS.md`.
+Built on ideas from [claude-video-2](https://github.com/ItsssssJack/claude-video-2) (gallery-first flow, brief in numbers), [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) (style protocol, rubric, explainer grammars, anti-slideshow gate; MIT), [MVP-Prompts](https://github.com/mattvideoproductions/MVP-Prompts) (video-to-unreal, Seedance prompting guide) gokaygokay's video-to-shader method, and [claude-video-skills](https://github.com/Imaginative-Prompting/claude-video-skills) by Imaginative Prompting (camera, motion, timing, blocking, light, render and team crafts; MIT). Full list with licenses in `CREDITS.md`.
 
 If you only need timed lyrics on a background, [hookline.cc](https://hookline.cc) does that in minutes.
 
