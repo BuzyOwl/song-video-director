@@ -6,6 +6,8 @@
 - real scale and occlusion
 
 The AI only has to "paint" the result. Use this whenever a shot needs a precise camera move, a choreography, or several angles of one space.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## Tools
 - **mcp-for-blender** (`uvx mcp-for-blender`, formerly blender-mcp):
@@ -13,9 +15,9 @@ The AI only has to "paint" the result. Use this whenever a shot needs a precise 
   - CC0 assets: `search_assets` / `import_asset` (Poly Haven, Sketchfab, Poly Pizza)
   - `generate_3d` for one prop
   - Start with `get_addon_status`.
-- **Alternative: Blender Lab's official MCP** (Blender 5.1+). It uses the same port (9876), so run **only one** of the two.
+- **Alternative: Blender Lab's official MCP** (Blender 5.1+). **Fact:** it uses the same port (9876), so run **only one** of the two.
 - **Without an MCP:** run headless with `blender -b -P script.py`. Keep scripts in `blender/` so every shot can be regenerated.
-- **Scripting rules for someone else's Blender:**
+- **Scripting rules for someone else's Blender (Fact: names and enums are localised):**
   - find shader nodes by `type`, never by name
   - read enum identifiers, never hardcode them
   - put colours on node inputs
@@ -24,7 +26,7 @@ The AI only has to "paint" the result. Use this whenever a shot needs a precise 
 ## Blockout to guides
 1. **Blockout at real scale** (metres): primitives plus CC0 imports, grey clay material, one key light matching the planned light direction. Set the scene fps to the film's fps.
 2. **Camera on the beat:** convert the beats from `song_facts.json` to frame numbers. Put camera keys on the downbeats, using Bezier with ease-in-out, plus a 2–4 frame settle. Set a real lens (24/35/50/85 mm) to match the look.
-3. **Clay animatic:** render with Workbench or EEVEE at 480p, mux the song in, and show it. **The user approves the camera and timing here,** before any credit is spent.
+3. **Clay animatic:** render with Workbench or EEVEE at 480p, mux the song in, and show it. **Safety:** the user approves the camera and timing here, before any credit is spent.
 4. **Export guides** per shot, each with one job:
    - `first.png` / `last.png`: clay frames. Turn them into styled keyframes with image generation (the same identity references), or with depth→image so composition stays exact.
    - `depth.mp4` (mist or Z pass, normalised) and `lines.mp4` (Freestyle or edge): structure guides for models that take a video or structure reference.
@@ -38,7 +40,7 @@ The AI only has to "paint" the result. Use this whenever a shot needs a precise 
 6. **Coverage for free:** render the *same* blockout from a second camera. AI shots made from both angles cut together because the geometry is identical.
 
 ## Dance and performance reference
-**Rights first:** use only footage the user filmed, owns, or has permission for. No celebrity likeness, and no copying of a named choreographer's routine as the selling point.
+**Safety, rights first:** use only footage the user filmed, owns, or has permission for. No celebrity likeness, and no copying of a named choreographer's routine as the selling point.
 
 | Goal | Route |
 |---|---|
@@ -52,7 +54,7 @@ The AI only has to "paint" the result. Use this whenever a shot needs a precise 
 
 ## Real footage → 3D → animate (the "recreate then move" trick)
 When the user has a real location clip or photo and wants impossible camera moves through it:
-- **A few photos:** blockout from the photo (match the horizon and vanishing points, fSpy-style), project the photo onto the blockout as a texture (camera projection), and move the camera within about 15° of the original view.
+- **A few photos:** blockout from the photo (match the horizon and vanishing points, fSpy-style), project the photo onto the blockout as a texture (camera projection; the creator's own photo, unlike a third-party reference in `engines/recreate.md`), and move the camera within about 15° of the original view.
 - **A walkthrough clip:** go to `engines/recreate.md` to rebuild it properly, then animate.
 - **A gaussian splat or photogrammetry** of the location, when available: import it, and use it as the blockout and depth source.
 

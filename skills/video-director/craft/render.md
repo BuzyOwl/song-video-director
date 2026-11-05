@@ -7,7 +7,8 @@ Adapted from Imaginative-Prompting/claude-video-skills `rendering` + `render-che
 ## Before you queue
 - **Prove it renders cheaply first:** typecheck, load every module, bundle the whole project, render one real frame.
   (A scene with no component behind it threw at frame 1 after two hours in a queue.)
-- **Render from a frozen copy** for anything long; a queued render uses the code as it is when it starts.
+- **Render from a frozen copy** for anything long; a queued render uses the code as it is when it starts (macOS: an
+  APFS clone, `cp -c -R`, costs no extra disk).
 - Pin `remotion` and every `@remotion/*` to one exact version. Pin three.js.
 - Fonts: static instances through one loader that holds the frame until ready.
 - Bake heavy meshes ahead (scene build > load timeout, 30 s default, fails). Exact integer output sizes.
@@ -28,6 +29,8 @@ probes go through one queue (a lock file is enough). Stills jump ahead of render
 ## Motion blur
 - Average sub-frame shutter samples across 180° (half the frame interval); know whether samples centre on or trail the
   frame and log the real sample times. Sharp lettering stays sharp at ~4 px movement per sample, not 12.
+- **Fact:** movies and stills can sample different times (in one film no movie sample fell on a whole frame; a still
+  was exactly the frame). A bug seen only in the movie lives at sub-frame times: render single samples as stills.
 - **Prove the mixer:** a test where each frame shows its own number; frame k's mix must show only k.
 - R3F in Remotion: don't `advance()` after every canvas-texture draw (4–5 renders a frame); render once after the last
   draw in the frame's commit, and never skip that last render (cleared canvases came out pure white).
@@ -42,6 +45,10 @@ probes go through one queue (a lock file is enough). Stills jump ahead of render
   (your fps in place of 30).
 - Splicing a partial re-render: everything the change adds is out of frame at the splice; prove the seam by comparing
   old vs new frames just outside the kept span.
+- **Fact:** diff a patch's pre-roll frames against the cut before handing it over (missing props once drew an old
+  version of a section, and it passed its checks: the wrong scene rendered).
+- **Fact:** a mount or speed gate changed the picture on every frame it covered. Render one frame inside the gated span
+  before and after the gate, and diff it.
 
 ## Colour
 - BT.709 everywhere. ffmpeg 8 keeps frames' own tags over output flags, so stamp them in the filter chain:
@@ -55,7 +62,8 @@ probes go through one queue (a lock file is enough). Stills jump ahead of render
 - No `-shortest` under a copied picture: pad or trim the audio, then count output frames.
 
 ## Checks (after every render, before anyone sees it)
-1. `film_gate.py` (dead gap, flicker, slideshow, cuts, delivery: tags, CFR, A/V offset).
+1. `film_gate.py`: HARD = global flicker, blank, delivery (tags, CFR, A/V offset), loop; dead gap and slideshow are
+   reported against the feel card and only fail when feel.json sets `"gate"`.
 2. **Blank scan:** black, white, frozen, magenta or missing frames; frame count vs expected. (A draft with 55 of 101
    frames blank once passed its QC.)
 3. **Pop scan:** spikes in frame-to-frame difference. Each is a designed snap or a bug; look at every one. Anything that
@@ -63,10 +71,14 @@ probes go through one queue (a lock file is enough). Stills jump ahead of render
 4. **Hard-cut scan:** colour-histogram jump per frame pair (16 bins/channel at 160×90, half L1). Catches one-frame world
    switches inside fast motion where pixel diff can't.
 5. **Local flicker** (z-fighting, decals 1 mm off a surface, shader thresholds tipping, shadow crawl, thin-face glints,
-   grow-from-zero-depth): film_gate only sees global luminance flashes. For local flicker, test 1–3-frame runs where a
-   pixel differs from both the frame before and after while those two agree:
-   `score = min over run of min(d(f, before), d(f, after)) − d(before, after)`. With a moving camera, first align the
-   neighbours with dense optical flow and quiet fast motion; report a mask video, ranked events, a sheet per event.
+   grow-from-zero-depth, window and frame edges in 3D sets): film_gate only sees global luminance flashes. Run
+   `python -I $SKILL/scripts/flicker_scan.py film.mp4 --start s --end s --out flicker/` on every 3D or shader span.
+   It aligns neighbours with optical flow, scores 1–3-frame runs that change and change back, quiets fast motion, and
+   writes `report.json` (ranked events: time, source frame, box), `mask.mp4` and `sheets/event_NN.jpg` (5 frames round
+   the peak; bottom row = flagged pixels in red). Judge each event on its sheet: designed blinks, sparkles, strobes and
+   per-frame noise or grain (a dither, a noise texture) score too. Calibrate `--seed/--grow` on one known flicker and one
+   known-clean span per project. **Fact:** compare chroma at 4:2:0 resolution, or saturated edges under a pan read as
+   flicker (the scanner does this). Method: Imaginative-Prompting/claude-video-skills `render-checks` (MIT).
 6. **Jitter:** phase-correlate consecutive frames; a 1 s window with no step >12 px whose path is ≥14 px but net travel
    <35% of path = the camera wandered and came back.
 7. **Clipping:** audit oriented boxes + swept circles before render; triangle tests for thin parts; measure depth before

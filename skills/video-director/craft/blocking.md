@@ -2,6 +2,8 @@
 
 Load when starting a 3D or camera-heavy piece, when shots keep getting rebuilt, or when the creator wants to direct
 shots one at a time. Adapted from Imaginative-Prompting/claude-video-skills `blocking-first` (MIT).
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 Simple shapes iterate in minutes; detail built on locked paths never moves the camera again.
 (The music-mode grey-box animatic is the 2D cousin of this. For AI clips, `engines/guide-3d.md` blocks in Blender.)
 
@@ -15,8 +17,8 @@ Simple shapes iterate in minutes; detail built on locked paths never moves the c
    key), per-key options `stop`, `hold`, `gravity` (ballistic to next key).
 4. Scenes tile the song with no gaps. The boundary frame belongs to both and its key is identical in both files. Each
    object has one track across all files.
-5. **Pure readers are the only access:** `cameraAt(f)`, `objectAt(id, f)`, `anchorAt('subject.head', f)`. Every lookup
-   **refuses an unknown id** (a fall-through once turned every text card into cloth).
+5. **Pure readers are the only access:** `cameraAt(f)`, `objectAt(id, f)`, `anchorAt('subject.head', f)`. **Fact:** every
+   lookup **refuses an unknown id** (a fall-through once turned every text card into cloth).
 6. Stand-ins flat: shapes, flat colours, no materials/fog/shadows/post. Nothing near the hero shares the hero's colour.
    Text placeholders get one translucent colour.
 7. Slow motion = one world-clock setting per scene; camera and song stay on the song clock.

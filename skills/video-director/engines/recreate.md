@@ -6,13 +6,16 @@ The reference video is the spec. Rebuild it as a real, controllable 3D scene, ma
 - **Unreal 5.8 is optional,** through Epic's experimental MCP plugin: use it when lighting and surface detail matter more than speed. The Unreal round took about 3–4× the time.
 
 Method adapted from gokaygokay's video-to-shader and MattVidPro's video-to-unreal (MVP-Prompts).
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## Rules
-- **Never alter or project the reference into the scene,** and never put reference frames inside it. Anything the clip never shows can be inferred, but log it as inferred.
+- **Safety: never alter or project the reference into the scene,** and never put reference frames inside it (it may
+  not be ours to use; the point is a rebuilt space). Projecting the creator's own photo is `engines/guide-3d.md`. Anything the clip never shows can be inferred, but log it as inferred.
 - **Assets:**
   - procedural or CC0 assets only (`references/sources.md`)
   - log every import in `CREDITS.md`
-  - no paid assets, APIs or cloud jobs without a "yes"
+  - **Safety:** no paid assets, APIs or cloud jobs without a "yes"
 - **Isolation:** a new project folder per recreation. Save a working state before every big push.
 - **Editable source:** generator scripts live in `blender/gen_*.py`. Every mesh can be regenerated, and the scripts are the editable source.
 
@@ -63,4 +66,4 @@ Repeated items (books, planks, rivets, bottles) come from one parameterised gene
   - performance
   - the file list
 
-  Never invent token counts or costs.
+  **Safety:** never invent token counts or costs.

@@ -3,10 +3,12 @@
 Load at the start of any music video (build the audio map before keying anything), whenever something keys to a word
 or hit, and whenever a draft looks early or late. Talking mode uses section 2 for caption onsets.
 Adapted from Imaginative-Prompting/claude-video-skills `song-timing` (MIT); `scripts/song_facts.py` gives candidates.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## 1. Stems from the music tool itself
 - **Suno songs: use Suno's own stems** (song menu → Edit → Get Stems / MIDI → Auto split, WAV + MIDI; as of Oct 2026).
-  ~10 stems plus one MIDI per stem. **It spends credits on the user's account: ask first.**
+  ~10 stems plus one MIDI per stem. **Safety:** it spends credits on the user's account: ask first.
 - No tool stems? Fall back to a splitter (audio-separator, Mel-Band RoFormer). A general splitter buried a piano in
   "other" on one film; label the map "separated stems".
 - Check: summed stems vs master cross-correlate at lag 0. Check each instrument really sits in its stem.
@@ -15,9 +17,10 @@ Adapted from Imaginative-Prompting/claude-video-skills `song-timing` (MIT); `scr
 ## 2. Every word's onset, measured on the vocal audio
 **Onset = first audible energy of the word's first sound:** a fricative's noise rise, a stop's release burst, the first
 change into a vowel. Never the breath before a phrase, the previous word's tail, or a pitch ornament.
-Nothing keyed to a word is readable before its onset.
+By default nothing keyed to a word reads before its onset; foreshadowing ahead of it is a choice the brief names (hard
+rule 5).
 
-Use these for *which* words, never *when*:
+**Fact:** use these for *which* words, never *when*:
 - lyric-sheet times; automatic aligners (within 2 frames only ~half the time; held notes dragged words 1–1.7 s);
 - **speech-transcription (Whisper) word times: measured 0.5–0.8 s early on sung vocals;**
 - stem MIDI alone (Suno vocal MIDI ran ~6.5 frames ahead of its own audio; no blanket offset fixes it).
@@ -35,7 +38,7 @@ Method:
 6. Re-timing a word moves it in the shot: re-check the camera at the new time.
 
 ## 3. Beats and hits from the drum stem's audio
-- Tempo can drift (one song went 123.5 → 127.7 BPM and back): keep a list of beat times, not one period.
+- **Fact:** tempo can drift (one song went 123.5 → 127.7 BPM and back): keep a list of beat times, not one period.
 - Fit the grid to drum-stem audio onsets, not drum MIDI. Mean distance to onsets < ~0.1 beat (half a beat off lands
   every snap on the "and").
 - Hits by spectral flux, classified by band: kick 30–110 Hz rise · snare/clap 1.2–5 kHz noise with 25–110 ms tail ·
@@ -60,6 +63,6 @@ function kickJolt(t, kicks) {                       // kicks: sorted seconds
 
 ## Verify
 - Word-timing clip: the section with each onset marked on the vocal waveform. Step frames at each onset: the entrance
-  starts on that frame and nothing reads before.
+  starts on that frame and nothing reads before (unless the brief placed it ahead).
 - Grid vs drum stem: mean distance < ~0.1 beat.
 - `ffprobe`: `start_time` 0 on both streams; frame 0 is song time 0 (or the excerpt's own start).

@@ -1,5 +1,8 @@
 # Music mode
 
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
+
 Distilled from three finished films:
 - **Basement Goldfish:** p5.js cut-out, 132 BPM.
 - **Toota Naksha:** Remotion + WebGL, a 63.5 BPM ballad.
@@ -43,7 +46,7 @@ Then:
 |---|---|---|---|
 | < 75 | breathes on the bar, slow pushes | on phrases | bloom through held vowels |
 | 75–110 | moves on the beat | on the bar | pop per word |
-| > 110 | punches allowed | on the beat (cut 1–2 frames *before* the beat; it reads as on-time) | slam per syllable |
+| > 110 | punches allowed | on the beat (cutting 1–2 frames *before* the beat read as on-time on our films) | slam per syllable |
 
 ## 2. Feel card + scene plan (show it, get a yes)
 Write `feel.json` and the feel section of BRIEF.md (`references/feel.md`). Then one row per scene:
@@ -54,10 +57,10 @@ Also plan:
 - **Hook:** something striking in the first 1.5 s. The title lands on the first measured hit.
 - **One signature moment:** the frame people screenshot.
 - **Callbacks:** an object or motif from verse 1 returns transformed. The ending echoes the opening.
-- **Repeats grow:** chorus 2 keeps chorus 1's motif with new staging (camera, reveal, twist). Never replay it.
-- **Ending in the film's world:** credits happen inside the story (the hero signs the lyric sheet). No reusable credit card.
+- **Repeats grow:** chorus 2 keeps chorus 1's motif with new staging (camera, reveal, twist). A straight replay read as "same same".
+- **Ending in the film's world:** credits happen inside the story (the hero signs the lyric sheet). Default: no reusable credit card.
 
-- **Stillness is declared, never accidental.** A hold or time-freeze goes into `feel.json` `still` spans, with its reason. Even then, keep one thing alive: mist, grain, breath or a flag. A fully frozen frame reads as a bug. (Calibration on our own films found a 7 s frozen tableau and a 10 s freeze where even the mist stopped.)
+- **Stillness is declared, never accidental.** A hold or time-freeze goes into `feel.json` `still` spans, with its reason. By default keep one thing alive: mist, grain, breath or a flag; a fully frozen frame read as a bug on our films. A truly frozen beat (an EDM drop silent and still for one bar) is fine as the declared break. (Calibration on our own films found a 7 s frozen tableau and a 10 s freeze where even the mist stopped.)
 
 Mark each timing as measured or estimated.
 
@@ -76,10 +79,11 @@ Render the whole song at 480p as grey boxes plus lyric text plus cut points, wit
   - Seated figures anchor on a seat point.
 - **Type system:**
   - two or three voices, fixed lanes
-  - phone-readable sizes: thin serif ≥ 74 px at 1080p, sans ≥ 60 px
+  - phone-readable sizes: thin serif ≥ 74 px at 1080p, sans ≥ 60 px (lyric type; talking captions and pitch rooms size
+    for their own screen, `talking/checks.md`)
   - a soft scrim behind type
-  - one key word per line in the accent colour
-  - never over a face
+  - one key word per line in an accent from the STYLE.md
+  - off faces (hard rule 6)
 - **Lyrics inside the world:** draw text on canvas textures that live in the scene (whiteboards, chats, invoices, sheets), with maxWidth auto-fit.
 - **Taste anchors:** after the 3 stills are approved, save them as `anchors/`. Every new scene's still is compared to the anchors by palette ΔE and contrast (`film_gate.py --style`), so parallel agents can't drift.
 
@@ -99,6 +103,6 @@ Render the whole song at 480p as grey boxes plus lyric text plus cut points, wit
   - the call to action and links in the first two lines and the pinned comment
   - chapters
   - captions (.srt from the tagged words)
-- **Upload:** confirm the visibility before anything goes public, and let the creator pick the file. Tick AI disclosure when music or visuals are AI-made. Skip end cards that would cover the final shot.
-- **Shorts:** pick 2–3 self-contained 15–45 s spans (a hook or a chorus). Re-frame them to 9:16 (re-lay out, never just crop), and give each a looping first and last pose.
-- **Credits:** an honest "who did what" list in the description.
+- **Upload:** confirm the visibility before anything goes public, and let the creator pick the file. **Safety:** credit every AI-made part (music, visuals, voice) in CREDITS.md and the description, and tick the platform's AI-content box per that platform's current rule; never present an AI voice or clip as real. End screens are optional: skip them when they'd cover the final shot, or keep the last 5–20 s clear for them (`modes/youtube.md`).
+- **Shorts:** pick 2–3 self-contained spans (a hook or a chorus; 15–45 s worked, Shorts allow up to 3 min: check current platform limits). Re-frame to 9:16 by re-laying out (the default for designed frames) or by cropping on the subject when the frame survives it, and give each a looping first and last pose.
+- **Safety: credits:** an honest "who did what" list in the description.

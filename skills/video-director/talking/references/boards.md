@@ -25,14 +25,17 @@ would need a React port. Remotion still composites the result: cut video, PiP bu
 - Caption band: from `captions.y` (default 0.84 h) +-0.08 h. Nothing readable there unless `captions` is null.
 - 60 px padding on every side; every readable word >= 40 px (phone).
 
-## Sync rules (from board-sync, proven on real reviews)
-- Land on the word that names it: never before the word, never more than 2 s after.
+## Sync directions (from board-sync, proven on real reviews)
+Defaults for explainer boards; a board may break one with a line in its STYLE.md. **Safety** = hard rule 1.
+- Land on the word that names it: not before the word, at most 2 s after (a deliberate tease is a declared choice).
 - A part never lands before its container; an arrow never before both of its ends.
-- Structure first: headline and boxes/rails/axes are on screen from frame 0. No board opens empty.
+- Structure first: headline and boxes/rails/axes on screen from frame 0, so a board doesn't open empty (a designed
+  build-from-blank is a declared choice).
 - Nothing still for more than ~3 s while the speaker talks: fill with the speaker's own words (a 2-4 word note),
   never invented copy.
-- Nothing moves after it lands: no pulses, loops, zooms or camera pushes inside a board. Emphasis = size.
+- Still once landed is the default: no pulses, loops, zooms or camera pushes inside a board; emphasis = size. A look
+  that wants living boards (e.g. slow drift) declares it.
 - Money/percent pop only on a number said as money/percent; a count never gets a price sticker.
-- Copy that contradicts what is said is flagged to the user, never silently changed. Never invent numbers, logos,
+- **Safety:** copy that contradicts what is said is flagged to the user, never silently changed. Never invent numbers, logos,
   quotes or footage: a missing asset is a dashed "pending" card.
 - QA: each element is absent 0.1 s before its word and present 0.5 s after (pull those two frames).

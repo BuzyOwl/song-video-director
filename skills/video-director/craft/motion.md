@@ -2,9 +2,12 @@
 
 Load when animating or reviewing motion, or when a note says "pops in", "stiff", "floaty", "fake", "dead".
 Camera has its own rules (`craft/camera.md`). Adapted from Imaginative-Prompting/claude-video-skills
-`animation-principles` (MIT).
+`animation-principles` (MIT). Characters with their own movement style (a cartoon, a liquid, a realistic person) get
+their own motion file in the piece's folder, on top of this one.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
-## 1. Every frame is a pure function of time
+## 1. Every frame is a pure function of time (hard rule 7)
 Renderers draw frames out of order and in parallel chunks.
 - **Physical state is re-simulated, not remembered:** springs and lag re-run from t=0 on a fixed step (1/120 s), or
   baked once into a track and sampled.
@@ -29,7 +32,8 @@ function springAt(t, target, k = 120, c = 14, dt = 1 / 120) {   // follow-throug
 | Action | ~0.15 s sharp ease-out (snap) | 0.25–0.6 s, minimum-jerk reaches |
 | Overshoot | a few cm, ~30% squash | ≤5%, in rotation not position |
 | Settle | ~0.45 s damped spring | 0.5–0.9 s, heavier damping |
-- Nothing alive moves linearly. Pushed = ease-out; falling or giving up = ease-in; impacts are never eased to a stop.
+- Default: nothing alive moves linearly (it reads mechanical).
+  Pushed = ease-out; falling or giving up = ease-in; impacts are never eased to a stop.
 - Settles start with zero slope: `settle = u => 1 - Math.exp(-k*u) * (Math.cos(w*u) + (k/w)*Math.sin(w*u))` (k≈6, w≈14).
 
 ## 3. Arcs, overlap, follow-through
@@ -43,9 +47,10 @@ strings, fingers) lag on springs. Velocity is continuous across path segments un
 - **Idle wobble isn't a reaction.** Change the stimulus and the deformation must change with it.
 - Music-driven things land their accent **on** the beat, not a slow move that starts on it and peaks late.
 
-## 5. Alive is never static
+## 5. Alive by default
 Breathing (~4–5 s at rest; held in anticipation, released after), per-limb idle noise 1–2° out of phase, weight shifts
 every few seconds, attention always aimed at something. Check a 6 s rest loop, never one still.
+A truly still figure is a choice (a storytime hold, a frozen beat), declared, never accidental.
 
 ## 6. Weight, gravity, impacts
 Gravity accelerates (ease-in or real ballistic arc). An impact has a contact frame at peak speed, then compression,
@@ -53,8 +58,10 @@ damped rebound, settle. First part to land stops first. Heavy starts slow and st
 What it touches reacts (a chair rolls back, a cushion gives, a car dips its nose).
 
 ## 7. Nothing pops in
-- Every entrance animates over 6–12 frames; type letter by letter where it fits.
-- **Starts on its cue, never before** (a word's measured onset, `craft/timing.md`). Wind-up before the cue can't be readable.
+- Default entrance animates over 6–12 frames; type letter by letter where it fits. Faster on purpose is fine (a
+  storytime pose swap ~0.1 s, a wake into video in 5 frames, a slam, a hard cut); an accidental pop is not.
+- **Starts on its cue by default** (a word's measured onset, `craft/timing.md`); an unplanned wind-up that reads before
+  the cue looks early. Running ahead as foreshadowing or a lead-in is a choice the brief names (hard rule 5).
 - Hidden ≠ absent: an edge-on card flipping in its last half frame is still a pop.
 - **Grow out, never through:** draw things rising from a surface only once their face clears it (~3 cm close, ~0.4 m at
   city scale). Scaling depth up from 0 z-fights.
@@ -72,4 +79,6 @@ planted feet don't slide; nothing passes through a body or desk unless designed;
 Typecheck → probe framing/image speed → draft render → frame-difference spike scan (`craft/render.md`) → step
 consecutive frames round every spike, contact, entrance, impact → 100% crops of hands, eyes, type → watch at 1× as a loop.
 For a reaction, compare with the stimulus off: the difference must be the response, not idle motion.
-Every-Nth-frame sheets hide strobing and one-frame pops.
+**Fact:** every-Nth-frame sheets hide strobing and one-frame pops.
+Don't relay "no pops" from someone else without stepping the frames yourself (hard rule 3).
+A rework adds to the existing beats; it never drops the point the shot already made.

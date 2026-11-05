@@ -1,6 +1,8 @@
 # Engine: AI clips (realism, performance, physical events code can't fake)
 
 Use AI clips for a few shots only, and only where they earn it: real skin, cloth, water, crowds, a human performance, or a camera move through a real-looking space. Everything else stays in code, where it is exact and free.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## Tools (MCP first; see `references/sources.md`)
 - **Higgsfield MCP** (`generate_video`, `generate_image`, `media_upload`):
@@ -15,7 +17,7 @@ Use AI clips for a few shots only, and only where they earn it: real skin, cloth
   - length
   - motion reference
 
-## Credit gate (hard)
+## Credit gate (**Safety**, hard rule 1)
 1. Write `shots.json`. One row per AI shot: `id, range, purpose, model, mode, refs, duration, est_credits`.
 2. Show the table with the total, then STOP. Wait for an explicit "yes".
 3. Generate **one shot at a time.** After each one, inspect it (below) before generating the next. A broken shot 1 usually means the prompt pattern is wrong for every shot.
@@ -65,10 +67,11 @@ Write prompts in this order:
 ## Conform AI clips into the film
 - **Technical match:** match fps (`-r`) and size. Grade to the STYLE palette (`ffmpeg -vf lut3d=look.cube`, or eq/colorbalance) so AI shots and code shots share black level, warmth and saturation.
 - **One finish pass over everything:** the same grain, vignette and halation applied to AI and code shots alike. This is the single biggest "it all belongs to one film" trick.
-- **Text:** lyrics and type are always rendered in code *over* the clip. Never ask the model for text.
+- **Text:** by default lyrics and type are rendered in code *over* the clip (exact and editable); don't ask the model for text.
 - **Timing:** cut on the beat grid. Speed-ramp at most ±15%; more than that looks synthetic.
-- **Faces:** check every face frame for drift. No text over faces.
-- **Credits:** log the model and the prompt in `CREDITS.md`, and tick AI disclosure.
+- **Faces:** check every face frame for drift. No text over faces (hard rule 6).
+- **Safety: credits:** log the model and the prompt in `CREDITS.md`, credit the AI parts, and tick the platform's
+  AI-content box per its rule. Never present an AI clip as real footage.
 
 ## Spend credits like a director, not a gambler
 - **Draft tier first:** if the MCP offers a cheaper or shorter mode, prove the prompt there (3–5 s). Re-run on the hero model only once the draft shows the mechanism working.

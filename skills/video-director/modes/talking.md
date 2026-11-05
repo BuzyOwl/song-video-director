@@ -1,5 +1,8 @@
 # Talking mode (reels, Shorts, vlogs, selfie clips)
 
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
+
 **Bar:** fillers gone, pacing tight, premium 2D graphics that match what was said, done in minutes.
 
 **Stack:**
@@ -72,9 +75,10 @@ python -I $SKILL/talking/scripts/prep.py "<video>" <work> [--drop 0,12-13] [--ke
 
 **Captions:**
 - word-pop, 1–3 words
-- `size` defaults to 78, never below 70
+- `size` defaults to 78 (≥ 70 read well on phone reels; size for the target screen, e.g. ~52 px at 1080p in a pitch
+  room, `talking/checks.md`)
 - accent on key words and numbers
-- unspoken words in a chunk at 45% opacity
+- unspoken words in a chunk at 45% opacity (the word-pop default; whole line at full ink is the other option)
 
 **Shape:**
 - the hook on the first content word
@@ -99,8 +103,9 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 
 ## Mode rules
 - **Cuts land in silence:** energy decides and VAD gates. Never widen a snap window past about 50 ms.
-- **Faces:** uniform scale and shift only. Compile enforces the lanes.
-- **Type:** one caption lane, one card lane, accents from the look, ≥ 70 px at 1080 wide.
+- **Faces:** uniform scale and shift only (hard rule 6). Compile enforces the lanes.
+- **Type:** one caption lane, one card lane, accents from the look, sized for the target screen (≥ 70 px at 1080 wide on
+  reels).
 - **New graphic:** small (lower-third size) = a new card in `remotion/src/cards`; slide-sized = a HyperFrames board project.
 - **After touching the cut logic:** `python -I $SKILL/talking/scripts/test_prep.py`.
 - **Honest limits:**
@@ -111,4 +116,4 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 1. Take the timestamp and run `--range a:b --preview`.
 2. Name the cause: a word ref, a lane, the face box or the zoom.
 3. If it can recur, fix it in compile.mjs. If it's one moment, fix it in edit.json.
-4. Add the lesson to `~/.video-director/checks.md` as `- DO / DON'T: rule (reel that taught it)` (never inside `$SKILL`, which is replaced on update).
+4. Add the lesson to `~/.video-director/checks.md` as `- DO / DON'T: rule (reel that taught it)` (never inside `$SKILL`, which is replaced on update). Tag it **Fact** if measured; offer to upstream general ones.

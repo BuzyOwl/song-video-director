@@ -3,6 +3,8 @@
 Load when a piece is split across several sessions or subagents, for an unattended overnight run, or to set up the
 review page. Adapted from Imaginative-Prompting/claude-video-skills `directing-sessions` + `review-page` (MIT).
 (`engines/code.md` "Parallel agents" covers file ownership and stubs; this file covers direction and review.)
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## The director session
 Makes nothing in the workers' files. Briefs and reviews every worker against the creator's notes, owns the GPU queue
@@ -15,7 +17,7 @@ order and the schedule, writes for the creator. **The creator's notes always out
 2. **One brief per worker:** scope, the creator's words that concern it (verbatim, oldest first), routing facts (files,
    frame ranges, queue command). No paraphrase, no step list of your own.
 3. **A recurring tick:** `/loop` or a scheduled task, every 30 min by day, 15 overnight (prompt below).
-4. **Checked saves for shared code:** typecheck, import every module, build the real bundle, revert all if any step
+4. **Fact: checked saves for shared code:** typecheck, import every module, build the real bundle, revert all if any step
    fails. Never land a multi-file change file by file (half-saved changes broke every render five times in two days).
 
 ## Relaying the creator's notes (the rule that matters most)
@@ -36,6 +38,7 @@ finished workers write their state and stand down. One consolidated message per 
 then, marked as the director's, only verified technical findings with frames: a flicker at f1520, a word 3 frames late).
 No message when nothing is new. Ask for times, not effort; on a 30+ min slip ask for a new true time and scope order,
 never a quality cut. Only the creator's notes are to-dos; flaws found on approved work go to the director as a list.
+Near the end, write a **scope lock**: exactly what may still change; everything else is frozen.
 Sessions talk via the app's session messaging, or an inbox file each reads at the start of every turn plus a STATE file.
 
 ### Tick prompt (fill the <…>, rewrite at every phase change)
@@ -94,4 +97,5 @@ Before a master, sweep the whole film on today's code against the cut.
 ```
 
 ## Safety
-Never kill a process you didn't start. Never delete without the creator's OK on the exact list. `date` before any time.
+Never kill a process you didn't start. Delete only files the pipeline can regenerate; anything else needs the creator's
+OK on the exact list (hard rule 9). `date` before any time.

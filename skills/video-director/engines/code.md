@@ -1,5 +1,8 @@
 # Engine: code (HyperFrames · Remotion · three.js · p5)
 
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
+
 ## Pick the lightest one that passes the frame-first test
 | Engine | Use for | Cost | Avoid when |
 |---|---|---|---|
@@ -15,7 +18,7 @@ Install the official agent skills next to this one:
 Their API rules beat any memory of them. This file only adds what our films taught.
 
 ## Contract (all engines)
-- **Every frame is `render(t)`:**
+- **Every frame is `render(t)`** (hard rule 7):
   - no state between frames
   - no Math.random (use a seeded RNG)
   - no Date.now, timers or rAF loops
@@ -24,7 +27,7 @@ Their API rules beat any memory of them. This file only adds what our films taug
 - **Fonts:**
   - free fonts only, loaded by `<link>` (HyperFrames) or `@remotion/google-fonts`
   - in HyperFrames, if you link any font, link every font
-  - never copy paid font files
+  - **Safety:** never copy paid font files
 - **Media** lives in the project's `media/` or `public/`. Never touch the user's originals.
 
 ## HyperFrames specifics
@@ -41,14 +44,14 @@ Their API rules beat any memory of them. This file only adds what our films taug
 ## Remotion specifics
 - Keep the engine framework-neutral: plain ES modules with `renderFilm(ctx, t)`. Remotion only hosts it, which handles parallel frames, audio mux and h264 at CRF 17.
 - **One shared WebGL2 context:** reset its state after every pass (blend, framebuffer, viewport). Most "random" glitches are leaked GL state.
-- **Temp files on the big drive:** `TEMP`/`TMP` = `VD_TMP` in `remotion.config.ts` and the render env. Every run leaves Chrome profiles behind; one project filled C: with 7.8 GB.
+- **Fact: temp files on the big drive:** `TEMP`/`TMP` = `VD_TMP` in `remotion.config.ts` and the render env. Every run leaves Chrome profiles behind; one project filled C: with 7.8 GB.
 - **Commands:**
   - stills for review: `npx remotion still <Comp> --frame N` (bundle once with `--bundle`, reuse it)
   - render: `npx remotion render <Comp> out.mp4 --concurrency=4`
 - **Tail render for small changes:** render only `--frames a-b` (pre-roll ~12 frames and drop them), then join by
-  decoding and encoding once, never `concat -c copy` (stream copy started a part 21 ms late and dropped/repeated
+  decoding and encoding once, never `concat -c copy` (**Fact:** stream copy started a part 21 ms late and dropped/repeated
   frames). Exact command and seam check: `craft/render.md`.
-- **Audio:** render the picture muted and mux the master WAV from 0 (Remotion's AAC measured 42.7 ms late).
+- **Audio (Fact):** render the picture muted and mux the master WAV from 0 (Remotion's AAC measured 42.7 ms late).
 
 ## three.js specifics
 - One renderer. Transitions composite two scenes in linear HDR **before** bloom, so wipe lines glow.
@@ -57,15 +60,15 @@ Their API rules beat any memory of them. This file only adds what our films taug
   - bloom
   - one finish shader: vignette, grain, fade
 - Lyrics go on canvas textures inside the world (TextPlane with maxWidth auto-fit). Mirrored floors reflect text: use render layers.
-- Pin the three.js version. The API churns; 0.186 removed `PCFSoftShadowMap`.
+- **Fact:** pin the three.js version. The API churns; 0.186 removed `PCFSoftShadowMap`.
 - **Hero bodies:** primitives can't carry anatomy. Use a rigged mesh, posed by FK, or by Blender headless (`blender -b -P pose.py` exports GLB plus a fit JSON). Judge poses from 3 angles, with the real props.
 
 ## Finishing that reads as "film", not "code"
-- **Camera micro-motion:** a slow drift of 0.3–0.8% of frame width per second, plus a 2–4 frame settle after every move. A dead-still camera reads as a slideshow.
+- **Camera micro-motion (default for 3D and plate films):** a slow drift of 0.3–0.8% of frame width per second, plus a 2–4 frame settle after every move. A dead-still camera read as a slideshow on our films; a locked-off hold is fine when declared (awe, storytime holds, landed boards).
 - **Light carries emotion:** one key, one rim, and warm/cool contrast between sections.
 - **Lens pass** only on close-ups: rack focus, diffusion, a little halation. Grain at 2–4% on everything, so code-perfect gradients stop banding.
 - **Audio-reactive ≠ everything pulses.** One element listens to the kick (a light, a thread, the particles). The rest follows the section's arousal.
-- **Cut on motion:** start the next shot while something is still moving. Land hits on the beat; cut 1–2 frames early.
+- **Cut on motion:** start the next shot while something is still moving. Land hits on the beat; cutting 1–2 frames early read on time above ~110 BPM (`modes/music.md`).
 
 ## Parallel agents (big rounds)
 1. **Before dispatching:**
@@ -84,7 +87,7 @@ Their API rules beat any memory of them. This file only adds what our films taug
 3. **Steer mid-flight** with short notes.
 4. **The coordinator owns the scene table, transitions and bookends,** and checks every seam where two agents' layers share a timestamp or a frame region. Thin one layer when two land on the same hit.
 
-## Tool sharp edges (Windows)
+## Tool sharp edges (Windows; all **Fact**)
 - Inline heredocs and `sed` eat quotes and backslashes. Write patch scripts to files, or use an exact-match edit.
 - A CLI that splits arguments on `=` mangles `--debug=front=0.1`; use `front:0.1`.
 - Read errors literally. ENOSPC means find where the disk went.

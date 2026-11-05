@@ -3,9 +3,11 @@
 Use for explainer, vlog or tutorial footage, or narration, cut into a 16:9 video plus Shorts.
 Follow the hub front door and hub rules; they are not repeated here. Engines: `engines/code.md` for
 the Remotion comp. Use `engines/ai-clip.md` only for b-roll that cannot be filmed or found.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## 0. Front-door defaults for this mode
-- Look shortlist (offer 3): **clean-talk** (face + t2 screenshots + y5 chapter cards), **explainer**
+- Look: the creator's own `brand/STYLE.md`, a fresh one, or one of 3 starters: **clean-talk** (face + t2 screenshots + y5 chapter cards), **explainer**
   (t1/y1 animation-led), **documentary** (y2 collage + t3 charts). Grammars are listed in §3.
 - 5 questions, with defaults: target length (= the cut, never padded) · 16:9 1920×1080 at source fps, plus 2 Shorts ·
   language en (hi → `--lang hi`) · at most 2 grammars besides the face · thumbnail with face: yes.
@@ -30,7 +32,7 @@ the Remotion comp. Use `engines/ai-clip.md` only for b-roll that cannot be filme
   `cut.mp4` and `words.json`. Borrow the card ideas, not its lanes.
 - Quick pass only: setting `"size": [1920, 1080]` in edit.json passes the check, but the lanes, caption size and face
   bands were tuned on 9:16. That is untested, so preview every card with `--range a:b` first.
-- Never crop the main long-form to 9:16. Crop only for Shorts (§5).
+- Long-form stays 16:9 by default (a 9:16 crop throws away the frame); Shorts crop or re-lay out (§5).
 
 ## 2. Retention structure
 | When | Rule |
@@ -39,14 +41,14 @@ the Remotion comp. Use `engines/ai-clip.md` only for b-roll that cannot be filme
 | 5–30 s | The promise and why to trust it. Content starts by 30 s. |
 | Every 60–90 s | Re-hook: an open loop ("in a minute I'll show…") or a payoff tease. Place it at a chapter start. |
 | Every ≤ 20 s | Something new on screen: b-roll, graphic, angle, or punch-in (1.1–1.2×, alternate long takes, land on sentence breaks). |
-| A concrete thing named | Show that thing (literal over abstract). B-roll in on the word ±0.2 s, 2–6 s long, voice keeps running (L-cut). |
+| A concrete thing named | Show that thing (literal over abstract). B-roll in on the word (default; a cut within ±0.2 s still reads on-word, a lead-in ahead of it is a choice the brief names), 2–6 s long, voice keeps running (L-cut). |
 | Dead air | `--pause` squeezes it. Also cut tangents that serve no chapter, retakes, and "so that's it / to wrap up". |
 | Chapters | Take them from topic shifts in `cut.txt` (new subject, "step 2", "next", "so why"). ≥ 3 chapters, first at 0:00, each ≥ 10 s (YouTube rule); aim for 1–4 min each. Chapter card 1.5–2.5 s (y5). |
-| Last 5–20 s | End screen. Give a verbal CTA to one named next video before it starts. Keep the frame clear for 2 video tiles + subscribe: no captions or cards there. The video must be ≥ 25 s. |
+| Last 5–20 s | End screen (optional; the long-form default). Give a verbal CTA to one named next video before it starts. Keep the frame clear for 2 video tiles + subscribe: no captions or cards there. **Fact:** YouTube needs the video ≥ 25 s for end screens (check current platform limits). |
 
 ## 3. Explainer grammars (adapted from alchaincyf/huashu-art-motion, MIT)
 Choose per segment from what the narration is doing. Use one grammar per segment; switch only at a segment boundary.
-| Narration is… | Grammar | Signature moves | Ban |
+| Narration is… | Grammar | Signature moves | Avoid (unless the look wants it) |
 |---|---|---|---|
 | A mechanism becoming the next step (network, matrix, gradient); action verbs, formulas | **t1 3b1b** | Black ground holding only the thing being discussed. Transform the last concept into the next (no cut). Colour = concept. 1–3 s move + 1 s hold, smoothstep easing. | Glow, bloom, blue-gradient ground ("tech PPT"). |
 | A product, feature, tutorial step or spec (noun + number) | **t2 keynote UI** | One thing per screen. Screenshot full frame, pushed into the part named. A noun or number lands as it is spoken. Spring bounce ≤ 0.15. | Glass card on a flat dark ground; using it for mechanisms or bad news. |
@@ -73,27 +75,28 @@ Cross-grammar rules:
 - Move the camera only when the eye must go somewhere new: 0.6–1.5 s eased glides. Use a fast push (0.28 s, +18–32 %)
   or a slam (0.17 s) only for a reveal, a twist or a key number. The same move on every shot reads as a slide deck.
   Put transitions at breaths and topic shifts, never mid-sentence.
-- Real material goes full frame and unaltered. Data stays honest: units, source, bars from 0. Label made-up data
+- Real material goes full frame and unaltered. **Safety:** data stays honest: units, source, bars from 0. Label made-up data
   "illustrative" on every shot. Check the wording against the picture: "8.7× as much" is not "up 8.7×".
 
 ## 4. Thumbnail and upload pack
 - Thumbnail: 1280×720 JPG/PNG, ≤ 2 MB, built from a real film frame picked from a contact sheet. A face with clear
-  emotion, ≤ 3 words that do not repeat the title, the look's accent. It must read at 168×94: check it at that size.
+  emotion, ≤ 3 words that do not repeat the title, the look's accent. Check it reads at YouTube's small size, 168×94 (check current sizes).
 - Title: ≤ 60 characters visible (100 max). It promises what the hook pays off; no bait the video does not deliver.
 - Description: the first 2 lines are the promise + the key link. Then chapters (0:00 first), then credits from
   CREDITS.md and the music licence.
 - Pinned comment: one question that invites a reply, or a link to the next video.
 - Captions: upload an SRT built from `words.json` (after the `fix` corrections) as CC.
-- AI disclosure: tick "altered or synthetic content" when realistic AI people, places, events or cloned voices appear.
-  It is not needed for 2D animation, captions, cuts or colour. Name the AI parts in the description. Never pass AI
-  shots off as real footage.
+- **Safety: AI disclosure.** Always credit every AI-made part in CREDITS.md and the description. Tick YouTube's "altered
+  or synthetic content" box per its current rule (realistic AI people, places, events or cloned voices; not required for
+  2D animation, captions, cuts or colour); other platforms have their own rules. Never pass AI shots off as real footage.
 - Write it all to `<work>/upload.md`: 3 title options, description, chapters, pinned comment, thumbnail path.
 
 ## 5. Shorts cut-downs
-- Pick 2–3 moments, each 20–45 s, that stand alone: one claim + its payoff, a joke, or a result reveal. Start on the
+- Pick 2–3 moments, each ~20–45 s (worked here; Shorts allow up to 3 min: check current platform limits), that stand alone: one claim + its payoff, a joke, or a result reveal. Start on the
   strongest line, never on a setup word.
 - Write a new hook line, since the long-form setup is gone: a card ≤ 6 words, on screen from 0 to 2 s.
-- Reframe to 9:16 on the face. From `track.json`, take the median `cx` of the boxes in the span. Then cw = H·9/16
+- Reframe to 9:16: crop on the face for talking footage (below), or re-lay out designed frames and graphics
+  (`modes/music.md`). Crop: from `track.json`, take the median `cx` of the boxes in the span. Then cw = H·9/16
   (round to even) and x = clamp(cx·W − cw/2, 0, W − cw):
   `ffmpeg -ss a -to b -i cut.mp4 -vf "crop=cw:H:x:0" short_N.mp4`
 - Re-run `prep.py` on each crop to get 9:16 words and a 9:16 track. Then follow `modes/talking.md` §Plan and §Render
@@ -102,12 +105,12 @@ Cross-grammar rules:
 
 ## 6. Gates (never claim a pass without running them)
 - `python -I $SKILL/scripts/film_gate.py <work>/final.mp4 --json <work>/gate.json`; exit 1 means fix and re-run.
-  Run it on every Short too. HARD checks:
-  - `dead_gap`: no visible change for more than 1.0 s.
-  - `flicker`: two luma spikes less than 0.17 s apart.
-  - `slideshow`: under 60 % of shots have in-shot motion.
-- A held screen recording or chart that fails `dead_gap`: zoom to the part being named, or cut to the face. Do not
-  argue with the gate.
+  Run it on every Short too. HARD checks (a broken render): global `flicker` (two luma spikes < 0.17 s apart), `blank`,
+  delivery (tags, CFR, A/V offset), and `loop` with `--loop`. `dead_gap` and `slideshow` are reported, and fail only
+  when this video's feel.json sets `"gate"` (`references/feel.md`).
+- The gate is evidence; on taste items the creator's vision wins. A held screen recording or chart flagged by
+  `dead_gap`: if the hold serves the video, declare it in feel.json `still`; if it reads dead, zoom to the part being
+  named or cut to the face. A gate that fails good work gets fixed (`references/lessons.md`).
 - Retention self-check, from the timeline:
   - List the time of every new visual or new piece of info (cut, b-roll, card, zoom, chapter card, new on-screen
     fact) and sort them. **Any gap over 20 s is a flag**: fix it at the next concrete noun.

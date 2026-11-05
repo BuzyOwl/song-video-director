@@ -3,6 +3,8 @@
 Adapted from huashu-art-motion protocol 16 (alchaincyf, MIT). Its finding: a style built from a text description alone came out as the same flat modern illustration with a new palette and noise. And its makers' self-scores ran about 10 points (up to 17) higher than independent review.
 
 Use this protocol for every look: every song gets a new one, and every brand look is built with it once.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## 1. Anchor in real works (never from memory)
 - Gather at least 3 **different** references: the user's links or images, public-domain works (Met Open Access, Wikimedia Commons), or film stills for study only (FILMGRAB).
@@ -20,7 +22,7 @@ Every style organises the frame in its own way:
 - Shinkai: half the frame sky, lens flare from practical lights.
 - Wes Anderson-like: centred symmetry and planimetric staging.
 
-Write one sentence, "this style composes by …", and lay out the new subject by it. Never reuse another piece's layout.
+Write one sentence, "this style composes by …", and lay out the new subject by it. Don't reuse another piece's layout by accident.
 
 ## 3. Shape layer, then medium pass
 Noise on top of flat vectors is not a style. Build two layers:
@@ -42,23 +44,23 @@ Render one still before any animation, then place it next to the references:
 "Is it recognisably this look?" is answered only from that image.
 
 ## 5. Move by the style's own motion logic
-- One main action plus 2 looping motifs.
+- Default: one main action plus up to 2 looping motifs (a landed board that holds still is a valid choice).
 - Use the style's own way of moving: ink drifts with the wind, strokes breathe, reflections shatter, frescoes barely move while gazes and handoffs do, cut paper steps at 12 fps with boil.
 - No generic fade-in on every element.
 
-## 6. Score: 100 points, threshold 80, at most 2 repair rounds
+## 6. Score: 100 points, threshold 80, up to 2 fix rounds (SKILL front door 7)
 | Item | Points | How it is judged |
 |---|---|---|
 | Signature hit | 25 | tick off the must-haves; −5 for each one missing; −5 for each taboo present |
 | Mood and emotion match | 20 | each section reads as its valence/arousal point; the arc reads in 12 muted frames; the deliberate break lands |
 | Feel targets | 15 | the `film_gate.py` cuts/min and stillness per section, against the feel card bands. Feel-sync is never scored: it read about 0 on every finished film. |
 | Medium credibility | 10 | at a 1:1 crop: a real medium, or vector plus noise? |
-| Composition and story | 10 | the style's own layout logic; the event reads at a glance; thumbnail-size test (160 px wide) still reads |
-| Motion and music sync | 10 | hits on the grid; motion follows the energy; nothing on screen under 0.3 s |
+| Composition and story | 10 | the style's own layout logic; the event reads at a glance; still reads at the smallest size it's seen (~160 px wide; YouTube 168×94) |
+| Motion and music sync | 10 | hits on the grid; motion follows the energy; nothing on screen under 0.3 s by accident (1-frame impact cuts on purpose are fine) |
 | Type and faces | 5 | lanes, phone-readable size, accent discipline, nothing over a face |
 | Technical | 5 | deterministic, no flicker, a clean encode |
 
-**Vetoes** (any one is a fail, whatever the total):
+**Vetoes** (the reviewer marks any one a fail whatever the total; the rubric and reviewer advise, the creator decides):
 - signature hit below 15
 - the hero or main subject looks childish or like a sticker
 - the mood contradicts the section
@@ -70,7 +72,7 @@ Render one still before any animation, then place it next to the references:
 - **It returns:** item scores, the signature checklist, vetoes, and the 3 biggest fixes.
 - **The lower score counts.** Report both.
 - **Taste** (is it beautiful?) is flagged for the human. The AI never writes "taste approved".
-- If the score is still under 80 after 2 rounds, say so plainly. Name what's stuck, and don't call it done.
+- **Safety:** if the score is still under 80 after 2 rounds, say so plainly. Name what's stuck, and don't call it done.
 
 ## 8. Taste anchors (consistency across scenes and agents)
 - After the 3 stills are approved, copy them to `anchors/`.

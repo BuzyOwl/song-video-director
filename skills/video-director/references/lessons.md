@@ -6,9 +6,13 @@ These come from:
 - **JKD:** Jod Ke Dekh, three.js
 - the talking-head reels
 
-Read this when you're stuck. Each lesson's last line is the transferable move.
+Read this before building (SKILL front door 4) and again when you're stuck. Each lesson's last line is the transferable
+move.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
-**Every new user complaint adds one line here, or one check to `film_gate.py`.**
+**New lessons go to `~/.video-director/checks.md`** (this folder is replaced on update), or become one check in
+`film_gate.py`. Offer to upstream general ones to the plugin repo.
 
 ## See before you fix
 - **"1:26 looks odd" (TN).**
@@ -69,7 +73,7 @@ Read this when you're stuck. Each lesson's last line is the transferable move.
 - **"Same same" (JKD).** Chorus 2 replayed chorus 1. Fix: keep the motif and restage it (new cameras, a twist, a reveal). *Repeats grow.*
 - **The effect has to mean something (JKD).** Clay → skin read as "mannequin". The intent was "machine model becoming human", so: a viewport-grey wireframe, with skin spreading from the fingertips. *Name the meaning before building the look.*
 - **Credits (JKD).** A glowing reusable card became a hand inking the credits on the lyric sheet, with the beat looping. *Endings belong to the song.*
-- **Honest credit (JKD).** "100% AI" was wrong. The fix: a who-did-what list, the creator's name in the title, the link in the description and pinned comment, AI disclosure ticked.
+- **Honest credit (JKD).** "100% AI" was wrong. The fix: a who-did-what list, the creator's name in the title, the link in the description and pinned comment, AI disclosure ticked (**Safety**).
 
 ## Parallel work
 - **TN:** 5 agents, then 4 more. About 1 hour per round instead of 5. **JKD:** 7 scene agents built 22 scenes.
@@ -88,7 +92,7 @@ Read this when you're stuck. Each lesson's last line is the transferable move.
   - The pose search rewarded fingers touching paper, so it picked dangling straight fingers. *Read what you rewarded.*
   - Previews used a placeholder pen, so the reviewer judged the placeholder. *Show reviewers the real thing, from 3 angles.*
 
-## Calibrating the gates (v2)
+## Calibrating the gates (v2, **Fact**)
 - **First film_gate run** failed all five finished films:
   - wipes counted as 1-frame shots
   - slow drift and 12 fps animation counted as "frozen"
@@ -101,11 +105,12 @@ Read this when you're stuck. Each lesson's last line is the transferable move.
 
   *Our own films are proof the pipelines work, not the taste ceiling.*
 
-## Tools
+## Tools (**Fact**)
 - **Windows:** heredocs and sed eat quotes and backslashes, so write patch scripts to files. A CLI that splits on `=` mangles `front=0.1`.
 - **three.js 0.186:**
   - `PCFSoftShadowMap` is gone
   - a motion-blur average needs `autoClear = false`
 - **Remotion:** a t-dependent infinite loop hangs "waiting for the page". Guard every search loop.
 - **Blender 5.2 glTF** has no loose-edge export, so wireframes go out as a JSON list of segments.
-- **Cleanup:** TN's `out/` went from 8.6 GB to 1.95 GB once cleanup became policy. Delete only what you regenerate; anything else needs the owner's OK.
+- **Cleanup:** TN's `out/` went from 8.6 GB to 1.95 GB once cleanup became policy. **Safety:** delete only files the pipeline can regenerate; anything else needs the creator's OK on the exact list (hard
+  rule 9).

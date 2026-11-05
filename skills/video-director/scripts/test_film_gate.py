@@ -31,19 +31,22 @@ def main():
     json.dump({'fps': 24, 'rms': [i / 96 for i in range(96)], 'beats': [0.5, 1, 1.5, 2, 2.5, 3, 3.5]}, open(j('song.json'), 'w'))
     open(j('STYLE.md'), 'w').write('palette: #101010 #F2F2F2 #FF3355\n')
     r = gate(ts, '--feel', j('feel.json'), '--song', j('song.json'), '--style', j('STYLE.md'))
-    assert r['hard']['slideshow']['pass'] and r['hard']['dead_gap']['pass'], r['hard']
+    assert r['pass'] and 'slideshow' in r['soft'] and 'dead_gap' in r['soft'], r   # no feel "gate": pacing is INFO
+    assert r['hard']['blank']['pass'] and r['hard']['delivery']['pass'], r['hard']
     assert 'loop' not in r['hard'], 'loop runs only with --loop'
     assert len(r['soft']['sections']['sections']) == 2 and r['soft']['feel_sync']['source'] == 'song.rms', r['soft']
     assert r['soft']['palette']['mean_dE'] is not None and 'beat_hits' in r['soft'], r['soft']
-    print('PASS 1 testsrc2: slideshow + dead_gap pass, soft checks present')
+    print('PASS 1 testsrc2: passes; pacing reported as INFO without a feel gate')
 
     # 2. three 2 s solid colours: a slideshow of dead frames
     rgb = ff(j('rgb.mp4'), *lav(f'color=c=red:{S}:r=24:d=2'), *lav(f'color=c=green:{S}:r=24:d=2'),
              *lav(f'color=c=blue:{S}:r=24:d=2'), '-filter_complex', '[0][1][2]concat=n=3:v=1:a=0')
     r = gate(rgb)
+    assert r['pass'] and r['soft']['slideshow']['cuts'] == 2, r   # a still style never fails; red->green needs chroma
+    json.dump({'gate': {'dead_gap': 1.0, 'slideshow': 0.6}}, open(j('gate.json'), 'w'))
+    r = gate(rgb, '--feel', j('gate.json'))
     assert not r['hard']['slideshow']['pass'] and not r['hard']['dead_gap']['pass'] and not r['pass'], r['hard']
-    assert r['hard']['slideshow']['cuts'] == 2, r['hard']['slideshow']   # red->green is isoluminant: chroma must catch it
-    print('PASS 2 solid colours: slideshow + dead_gap fail, 2 cuts found')
+    print('PASS 2 solid colours: pass with no gate; fail once the feel card sets dead_gap + slideshow')
 
     # 3. two white frames 0.1 s apart over black -> flicker; one white frame alone is fine
     box = "drawbox=x=0:y=0:w=iw:h=ih:color=white:t=fill:enable='{}'"
@@ -68,13 +71,27 @@ def main():
     print(f"PASS 5 palette: mean dE {p['mean_dE']} < 5")
 
     # 6. delivery: untagged, silent file fails bt709; tagged file with audio muxed from 0 passes, offset ~0
-    dv = gate(ts)['soft']['delivery']
+    dv = gate(ts)['hard']['delivery']
     assert not dv['bt709'] and dv['av_offset_ms'] is None and dv['cfr'], dv
     tag = ff(j('tag.mp4'), *lav('testsrc2=size=320x180:rate=24'), *lav('sine=f=440:r=48000'), '-t', '2',
              '-vf', 'setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709', '-c:a', 'aac')
-    dv = gate(tag)['soft']['delivery']
+    dv = gate(tag)['hard']['delivery']
     assert dv['bt709'] and dv['cfr'] and abs(dv['av_offset_ms']) < 50, dv
-    print(f"PASS 6 delivery: untagged fails bt709, tagged passes, offset {dv['av_offset_ms']} ms")
+    late = ff(j('late.mp4'), *lav('testsrc2=size=320x180:rate=24'), '-itsoffset', '0.5', *lav('sine=f=440:r=48000'),
+              '-t', '2', '-c:a', 'aac')
+    r = gate(late)
+    assert not r['hard']['delivery']['pass'] and r['hard']['delivery']['av_offset_ms'] > 400, r['hard']['delivery']
+    print(f"PASS 6 delivery: bt709 reported, offset {dv['av_offset_ms']} ms passes, planted 0.5 s audio lag fails")
+
+    # 7. blank: 1 s of black mid-film fails; the same span declared in feel "blank" passes; colour cards never count
+    mid = ff(j('mid.mp4'), *lav(f'testsrc2={S}:r=24:d=1.5'), *lav(f'color=c=black:{S}:r=24:d=1'),
+             *lav(f'testsrc2={S}:r=24:d=1.5'), '-filter_complex', '[0][1][2]concat=n=3:v=1:a=0')
+    r = gate(mid)
+    assert not r['hard']['blank']['pass'] and r['hard']['blank']['longest_s'] >= 0.9, r['hard']['blank']
+    json.dump({'blank': [[1.4, 2.6]]}, open(j('blank.json'), 'w'))
+    assert gate(mid, '--feel', j('blank.json'))['hard']['blank']['pass']
+    assert gate(rgb)['hard']['blank']['pass']
+    print('PASS 7 blank: mid-film black fails, declared span passes, solid colour cards pass')
     shutil.rmtree(d, ignore_errors=True)   # kept on failure for inspection
     print('all film_gate tests passed')
 

@@ -1,6 +1,8 @@
 # Feel: turning genre, mood and emotion into numbers
 
 Words like "sad", "hype" or "dreamy" can't be checked; numbers can. Before any build, write a **feel card**: a feel section in BRIEF.md plus `feel.json`. `film_gate.py` reads that file.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## 1. Place each section on the mood grid
 - **Arousal** (calm 0 → intense 1): the section's mean `energy` from `song_facts.json`, normalised over the song, then nudged by tempo (+0.1 above 120 BPM, −0.1 below 75 BPM).
@@ -53,14 +55,22 @@ Write the break into the feel card with its reason.
     {"name": "chorus1", "t0": 48.5, "t1": 80.0, "valence": -0.1, "arousal": 0.6, "cpm": [8, 14], "still": [0.15, 0.35]}
   ],
   "still": [[124.3, 131.0]],
+  "blank": [[0.0, 2.5]],
+  "gate": {"dead_gap": 1.0, "slideshow": 0.6},
   "break": {"at": 155.4, "what": "bridge cuts on every word", "why": "the narrator's composure breaks"},
   "arc": "numb -> cracking -> release -> quiet acceptance"
 }
 ```
 - **Section `still`** is a band, for the stillness ratio.
-- **Top-level `still`** lists intentional static spans, which are exempt from `dead_gap`.
+- **Top-level `still`** lists intentional static spans, which are exempt from `dead_gap` and `slideshow`.
+- **`blank`** lists `[t0, t1]` spans where an intentional flat black, white or magenta frame is allowed (a fade to black,
+  a white flash); the HARD `blank` check skips them. The first and last 1 s are always exempt.
+- **`flash`** lists spans where shots under 0.3 s are intended (SOFT `short_shots` skips them).
+- **`gate`** is opt-in: `{"dead_gap": seconds, "slideshow": share}` makes those pacing checks HARD for this video
+  (fail when the longest no-change run > seconds, or moving-shot share < share). Leave it out and they stay INFO.
+  Set it only when the creator wants pacing enforced; set only the keys you want.
 
 ## 5. Where it gets judged
 - **Measured** (SOFT numbers, by `film_gate.py`): cuts per minute and stillness per section, against the bands; feel-sync, the correlation of motion with audio energy.
 - **Judged** (rubric item "Mood and emotion match", `style-protocol.md`): does each section *feel* like its grid point; does the muted arc read; does the break land.
-- **Veto:** the mood contradicts the section (a strobe in a grief verse, a giddy bounce under a eulogy).
+- **Reviewer flag** (advice; the creator decides): the mood contradicts the section (a strobe in a grief verse, a giddy bounce under a eulogy).

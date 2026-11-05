@@ -1,6 +1,6 @@
 {
   "name": "video-director",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Direct music videos, animated shorts and cutscenes, talking-head reels and YouTube edits in code: fresh look, 5 questions, story and shot planning, blocking with stand-ins, renders checked from real frames. Remotion / HyperFrames / three.js, plus AI clips guided by Blender blockouts.",
   "author": {
     "name": "BuzyOwl"

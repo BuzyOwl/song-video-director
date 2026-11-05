@@ -3,11 +3,15 @@
 Usage: python -I film_gate.py <video> [--feel feel.json] [--song song_facts.json] [--style STYLE.md] [--loop] [--json out.json]
 Exit 0 = all HARD checks pass, 1 = a HARD check failed, 2 = the video could not be read.
 
-HARD
-  dead_gap       longest run with no visible change vs 0.5 s earlier > 1.0 s   (feel "still": [[t0,t1],...] spans are exempt)
+HARD (only a broken render fails; style and pacing never do)
   flicker        two luminance flashes (jump > 25/255 and back) < 0.17 s apart
-  slideshow      duration-weighted share of shots with in-shot motion < 0.6 (still spans excluded)
+  blank          a run >= 0.5 s of flat black, white or magenta frames, outside the first/last 1 s and feel "blank" spans
+  delivery       variable frame rate, or audio start more than one frame away from video start
+                 (also reports bt709 tags, which never fail: untagged is common, check colour by eye)
   loop           --loop only: first vs last frame mean abs diff > 2/255
+PER VIDEO (HARD only when this video's feel.json sets "gate": {"dead_gap": s, "slideshow": share}; else INFO)
+  dead_gap       longest run with no visible change vs 0.5 s earlier   (feel "still": [[t0,t1],...] spans are exempt)
+  slideshow      duration-weighted share of shots with in-shot motion (still spans excluded)
 SOFT (INFO, never fails)
   short_shots   shots under 0.3 s (feel "flash" spans exempt). SOFT: finished films use 1-frame impact cuts on purpose
   sections   cuts/min, stillness ratio (0.5 s window: on-twos and slow drift count as moving), mean motion per section. Spans: feel "sections" [{t0,t1,cpm:[lo,hi],
@@ -26,7 +30,7 @@ MOTION = 1.0        # in-shot median diff above this: a moving shot
 CUT_FLOOR = 8.0     # a cut clears this absolute diff ...
 CUT_X = 4.0         # ... and this many times the rolling median of its neighbours
 FLASH = 25.0        # mean-luminance jump that counts as a flash edge
-LIMIT = dict(dead_gap=1.0, flicker=0.17, slideshow=0.6, short_shot=0.3, loop=2.0)
+LIMIT = dict(flicker=0.17, short_shot=0.3, loop=2.0, blank=0.5)   # ponytail: dead_gap/slideshow limits come from feel.json
 r3 = lambda x: None if x is None else round(float(x), 3)
 
 
@@ -73,7 +77,7 @@ def decode(path):
     n = min(len(dg), len(th) - 1)
     if n < 1: raise ValueError('fewer than 2 frames decoded')
     d = np.maximum(np.array(dg[:n]), np.abs(np.diff(th[:n + 1], axis=0)).mean(1))
-    return fps, d, np.array(dw[:n]), np.array(lum[:n + 1]), np.abs(first - prev).mean(), th.reshape(-1, 3)
+    return fps, d, np.array(dw[:n]), np.array(lum[:n + 1]), np.abs(first - prev).mean(), th.reshape(len(th), -1, 3)
 
 
 def longest(mask):
@@ -152,15 +156,29 @@ def audio_energy(song, path, fps, n):
 
 
 def gate(path, feel, song, style, loop):
-    fps, d, dw, lum, loop_diff, px = decode(path)
+    fps, d, dw, lum, loop_diff, th = decode(path)
+    px = th.reshape(-1, 3)
     n = len(d); dur = (n + 1) / fps; t = (np.arange(n) + 1) / fps          # diff i = frame i -> i+1, at time (i+1)/fps
     still = in_spans(t, feel.get('still') or [])
     flash = feel.get('flash') or []
     hard, soft = {}, {}
+    lim = feel.get('gate') or {}
+
+    def per_video(name, entry, ok):        # HARD only when this video's feel card set a limit for it
+        if name in lim: entry['pass'] = bool(ok(lim[name])); entry['limit'] = lim[name]; hard[name] = entry
+        else: soft[name] = entry
 
     run, at = longest((dw < DEAD) & ~still)
     gap = (run + 1) / fps if run else 0.0
-    hard['dead_gap'] = {'pass': gap <= LIMIT['dead_gap'], 'longest_s': r3(gap), 'at_s': r3(at / fps), 'limit_s': LIMIT['dead_gap']}
+    per_video('dead_gap', {'longest_s': r3(gap), 'at_s': r3(at / fps)}, lambda L: gap <= L)
+
+    mean = th.mean(1); sd = th.std(1).mean(1); r_, g_, b_ = mean.T
+    flat = (sd < 3) & ((mean.max(1) < 16) | (mean.min(1) > 240) | ((r_ > 200) & (g_ < 60) & (b_ > 200)))
+    tf = np.arange(len(th)) / fps
+    flat &= (tf >= 1.0) & (tf <= (len(th) - 1) / fps - 1.0) & ~in_spans(tf, feel.get('blank') or [])
+    brun, bat = longest(flat)
+    hard['blank'] = {'pass': brun / fps < LIMIT['blank'], 'longest_s': r3(brun / fps), 'at_s': r3(bat / fps) if brun else None,
+                     'frames': int(flat.sum()), 'limit_s': LIMIT['blank']}
 
     j = np.diff(lum); k = max(1, round(LIMIT['flicker'] * fps))
     spikes = [i for i in range(len(j)) if abs(j[i]) > FLASH and
@@ -186,8 +204,7 @@ def gate(path, feel, song, style, loop):
     wts = np.array([(~stillf[a:b]).sum() for a, b in shots], float)
     mov = np.array([b - a > 1 and np.median(dw[a:b - 1]) > MOTION for a, b in shots])
     share = (wts * mov).sum() / wts.sum() if wts.sum() else 1.0
-    hard['slideshow'] = {'pass': share >= LIMIT['slideshow'], 'moving_share': r3(share), 'shots': len(shots),
-                         'cuts': int(cut.sum()), 'limit': LIMIT['slideshow']}
+    per_video('slideshow', {'moving_share': r3(share), 'shots': len(shots), 'cuts': int(cut.sum())}, lambda L: share >= L)
 
     lens = [((b - a) / fps, a / fps) for a, b in shots if not any(a / fps <= f1 and b / fps >= f0 for f0, f1 in flash)]
     short, sat = min(lens) if lens else (None, None)
@@ -222,7 +239,9 @@ def gate(path, feel, song, style, loop):
             g = beats[np.abs(beats[None] - tc[:, None]).argmin(1)] - tc          # nearest beat minus cut time
             on = (np.abs(g) <= 1 / fps + 1e-6).mean(); early = ((g > 1e-6) & (g <= 2 / fps + 1e-6)).mean()
         soft['beat_hits'] = {'on_beat': r3(on), 'early_1_2f': r3(early), 'cuts': len(tc), 'beats': len(beats)}
-    soft['delivery'] = delivery(path)
+    dv = delivery(path)
+    dv['pass'] = dv['cfr'] and (dv['av_offset_ms'] is None or abs(dv['av_offset_ms']) <= 1000 / fps + 1e-6)
+    hard['delivery'] = dv
     return {'video': path, 'fps': r3(fps), 'duration_s': r3(dur), 'hard': hard, 'soft': soft,
             'pass': all(v['pass'] for v in hard.values())}
 

@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.0 (2026-11-05)
+- Rules model: 9 hard rules in SKILL.md (honesty/money/legal, the creator's vision first, look before claiming, no broken finals, deliberate measured placement, faces, determinism, approved stays approved, originals safe). Everything else is a direction a piece may break with one line in its STYLE.md; measured bugs are tagged **Fact**, hard-rule-1 lines **Safety**. Every mode, engine, craft and reference file carries the note.
+- Looks are a menu, never a fence: the creator's own style, ready looks, or a fresh one (`references/stacks.md` §1). New stack guide: pros/cons, combinations that held, when Blender earns its place and how it hands off.
+- `film_gate.py`: HARD = broken render only (global flicker, blank, delivery, loop). Pacing (dead gap, slideshow) is judged against the feel card and fails only when feel.json sets `"gate"`. New HARD blank check (black/white/magenta runs, `blank` spans exempt) and delivery made HARD (CFR, A/V offset within a frame).
+- New `scripts/flicker_scan.py`: local flicker under a moving camera (flow-aligned neighbours, 1-3-frame change-and-back runs, CIELAB tolerance, motion quieting), with mask video, ranked events and contact sheets; method from Imaginative-Prompting/claude-video-skills render-checks (MIT). Chroma compared at 4:2:0 resolution (saturated edges under a pan otherwise read as flicker). Tested on planted flicker, a clean pan and a hard cut.
+- Conflicts from the rules inventory (`docs/rules-inventory.md`) resolved: lesson location, deletion, AI disclosure, fix rounds, Shorts length, thumbnails, 9:16 crop vs re-layout, b-roll timing, entrances, dark vs bright looks, camera drift, caption ink and sizes, reviewer vetoes as advice.
+- Added from the reference repo: camera pace at large scale, spline edits leaking into neighbours, shot size and height balance shares, optional continuous-camera style; rework keeps the point; scope lock; patch pre-roll and gated-span diffs.
+- talking/checks.md keeps only bugs and safety; pitch-film look choices are options.
+
 ## 2.1.0 (2026-11-05)
 - New `craft/` layer, loaded one file at a time: story, camera, motion, timing, blocking, light, render, team. Camera, motion, timing, blocking, light, render and team are adapted from Imaginative-Prompting/claude-video-skills (MIT); story comes from the author's film-cinematographer skill.
 - New film mode for animated shorts, cutscenes and narrated story films (script or VO as the clock, blocking first, shot by shot).

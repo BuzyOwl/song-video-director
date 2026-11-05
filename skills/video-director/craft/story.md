@@ -3,6 +3,8 @@
 Load when planning what each shot is *for*: turning a song or script into beats and a shot list, or when a piece has
 a nice world but no point of view. Measured camera rules live in `craft/camera.md`; light in `craft/light.md`.
 From the user's own film-cinematographer skill. Engine is irrelevant: Unreal, Blender, three.js, Remotion, AI clips.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 Every shot needs a subject, an intention and a reason to end. The common failure is a camera wandering a nice world.
 
@@ -38,15 +40,16 @@ Every shot needs a subject, an intention and a reason to end. The common failure
 ## 4. Transitions with meaning
 Plain cut is the default and strongest (on action, beat or a look). Match cut ties places (steam → clouds). Foreground
 wipe continues a journey. Dissolve / light leak = time or memory, sparingly. Push through glass or cloud = entering a
-memory. Whip = energy. Never without a reason; never the same fancy transition twice in a row.
+memory. Whip = energy. Each one needs a reason; avoid the same fancy transition twice in a row (it reads as a template).
 (Continuous-camera pieces use `craft/camera.md` Transitions instead.)
 
 ## 5. Words inside the world
 Put a key line where someone in that world could write or see it: chalk, a finger on fogged glass, a stick in snow,
-a stall sign. Reveal on the vocal onset (`craft/timing.md`), phone-readable, never over faces. Subtitle lane only when
+a stall sign. Reveal on the vocal onset (`craft/timing.md`), phone-readable,
+off faces (hard rule 6). Subtitle lane only when
 no believable surface exists. Repeated hooks get new staging each time.
 
-## 6. Rhythm
+## 6. Rhythm (music default; the feel card can set its own)
 Verses hold 4–8 s, choruses cut on bars, final montage every bar, bridge holds long. A quiet hold before each emotional
 peak. End shots **late on emotion**, **early on action** (cut while motion continues; a walk never stops dead pre-cut).
 

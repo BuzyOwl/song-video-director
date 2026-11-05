@@ -2,6 +2,8 @@
 
 For story pieces driven by a script, voiceover or score rather than a finished song. A song-led story goes to
 `modes/music.md`; it can still borrow this file's blocking flow.
+Directions unless tagged **Fact** (measured bug) or **Safety** (hard rule 1); a piece may break a direction with one line
+in its STYLE.md.
 
 ## The five questions (one message; skip any already answered)
 1. In one line: whose story, what changes, what should a viewer feel at the end? [I'll draft it from the script]
@@ -37,5 +39,6 @@ Reply with the numbers you want to change, or "go".
   issues on top.
 
 ## 5. Deliver
-Final + a 9:16 cut-down if asked (re-lay out, never crop), the beat sheet and shot list in `docs/`, honest credits and
-AI disclosure, `CREDITS.md` for every external asset.
+Final + a 9:16 cut-down if asked (re-lay out by default; crop on the subject only when the frame survives it), the beat
+sheet and shot list in `docs/`. **Safety:** honest credits, AI parts credited and the platform's AI box ticked per its
+rule, `CREDITS.md` for every external asset.

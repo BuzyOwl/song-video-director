@@ -7,7 +7,7 @@
 | [alchaincyf/huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) | MIT | style protocol (anchor, signatures, medium pass, frame first), 100 point rubric with vetoes, measured self-score inflation, explainer grammars, anti-slideshow gate idea |
 | [mattvideoproductions/MVP-Prompts](https://github.com/mattvideoproductions/MVP-Prompts) | see repo | video-to-unreal method, Seedance 2.5 prompting guide (distilled in engines/ai-clip.md) |
 | gokaygokay [shader-skills](https://github.com/gokayfem/shader-skills) | see repo | video-to-shader method behind the recreate engine |
-| [Imaginative-Prompting/claude-video-skills](https://github.com/Imaginative-Prompting/claude-video-skills) (commit cd57060, 2026-11-03) | MIT | craft/camera, motion, timing, blocking, light, render, team: shot cards, measured camera balance, motion grammar, onset rules, blocking as data, render and QA rules, director-session relays, review page |
+| [Imaginative-Prompting/claude-video-skills](https://github.com/Imaginative-Prompting/claude-video-skills) (commit cd57060, 2026-11-03) | MIT | craft/camera, motion, timing, blocking, light, render, team: shot cards, measured camera balance, motion grammar, onset rules, blocking as data, render and QA rules, director-session relays, review page; the local flicker method behind scripts/flicker_scan.py (code written here from its description) |
 | [Imaginative-Prompting/wip](https://github.com/Imaginative-Prompting/wip) (commit 5c5db62) | MIT | recommended review page tool: entry format, revision-safe writes, current cut, frame markup (used, not bundled) |
 | ae-builder (private skill) | n/a | verify-don't-trust discipline: every reported error becomes a check |
 
