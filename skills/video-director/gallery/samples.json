@@ -1,0 +1,12 @@
+[
+  {"id": "painterly-cutout", "src": "D:/03_Projects/Song Visualization For Basement Goldfish/animation/out/basement-goldfish-final.mp4", "start": 3, "dur": 7, "title": "Painterly Cut-out", "film": "Basement Goldfish", "engine": "p5.js", "cost": "high"},
+  {"id": "painterly-cutout-2", "src": "D:/03_Projects/Song Visualization For Basement Goldfish/animation/out/basement-goldfish-final.mp4", "start": 61, "dur": 7, "title": "Painterly Cut-out", "film": "Basement Goldfish", "engine": "p5.js", "cost": "high"},
+  {"id": "cinematic-plate", "src": "D:/03_Projects/Song Visualization For Toota Naksha/out/toota-naksha-v6.mp4", "start": 100.2, "dur": 6.4, "title": "Cinematic Plate", "film": "Toota Naksha", "engine": "Remotion+Canvas/WebGL", "cost": "high"},
+  {"id": "cinematic-plate-2", "src": "D:/03_Projects/Song Visualization For Toota Naksha/out/toota-naksha-v6.mp4", "start": 123.5, "dur": 7, "title": "Cinematic Plate", "film": "Toota Naksha", "engine": "Remotion+Canvas/WebGL", "cost": "high"},
+  {"id": "clay-world", "src": "D:/03_Projects/Song Visualization For Jod Ke Dekh/out/jod-ke-dekh-v8.mp4", "start": 202.3, "dur": 7, "title": "Clay World", "film": "Jod Ke Dekh", "engine": "three.js", "cost": "med"},
+  {"id": "clay-world-2", "src": "D:/03_Projects/Song Visualization For Jod Ke Dekh/out/jod-ke-dekh-v8.mp4", "start": 172.2, "dur": 7, "title": "Clay World", "film": "Jod Ke Dekh", "engine": "three.js", "cost": "med"},
+  {"id": "pop-era-collage", "src": "D:/03_Projects/Song Visualization For My Teacher Used To Say/art/out/teacher_journey_v9.mp4", "start": 115, "dur": 7, "title": "Pop Era Collage", "film": "My Teacher Used To Say", "engine": "Canvas/WebGL + three.js clips", "cost": "high"},
+  {"id": "pop-era-collage-2", "src": "D:/03_Projects/Song Visualization For My Teacher Used To Say/art/out/teacher_journey_v9.mp4", "start": 198, "dur": 7, "title": "Pop Era Collage", "film": "My Teacher Used To Say", "engine": "Canvas/WebGL + three.js clips", "cost": "high"},
+  {"id": "mist-silhouette", "src": "D:/03_Projects/Song Le chal mughe pahado pe/out/himalayan-vow-v1.mp4", "start": 365, "dur": 8, "title": "Mist Silhouette", "film": "Himalayan Vow", "engine": "three.js", "cost": "low"},
+  {"id": "mist-silhouette-2", "src": "D:/03_Projects/Song Le chal mughe pahado pe/out/himalayan-vow-v1.mp4", "start": 3, "dur": 8, "title": "Mist Silhouette", "film": "Himalayan Vow", "engine": "three.js", "cost": "low"}
+]
