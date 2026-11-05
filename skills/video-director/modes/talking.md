@@ -111,4 +111,4 @@ node $SKILL/talking/scripts/compile.mjs <work>/edit.json                  # fina
 1. Take the timestamp and run `--range a:b --preview`.
 2. Name the cause: a word ref, a lane, the face box or the zoom.
 3. If it can recur, fix it in compile.mjs. If it's one moment, fix it in edit.json.
-4. Add the lesson to `$SKILL/talking/checks.md` as `- DO / DON'T: rule (reel that taught it)`.
+4. Add the lesson to `~/.video-director/checks.md` as `- DO / DON'T: rule (reel that taught it)` (never inside `$SKILL`, which is replaced on update).

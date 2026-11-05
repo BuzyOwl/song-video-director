@@ -3,7 +3,7 @@
 ## Pick the lightest one that passes the frame-first test
 | Engine | Use for | Cost | Avoid when |
 |---|---|---|---|
-| **HyperFrames** (HTML + CSS + GSAP → MP4) | lyric videos, kinetic type, graphic looks, any 2D design | low; fastest to iterate | you need real 3D light and depth |
+| **HyperFrames** (HTML + CSS + GSAP → MP4) | default for new 2D: lyric videos, kinetic type, graphic looks, boards, cut-out or plate films | low; fastest to iterate | you need real 3D light and depth (on the next 3D film, trial three.js inside it via its canvas frame adapter; switch if frames match) |
 | **Remotion + Canvas2D/WebGL** | 2.5D story films from art plates, a mix of footage and graphics, the talking pipeline | med | the whole world is procedural 3D |
 | **three.js inside Remotion** | a world that is itself the story (lyrics on objects, real camera, light, depth) | high: 20–25 min full renders | 2D would carry it; then it's a waste |
 | **p5.js + p5.brush** | hand-painted cut-out with line boil | med; slow without a GPU | high-res close-ups |

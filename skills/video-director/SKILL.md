@@ -18,7 +18,7 @@ Read this file, then **one mode**, **at most two engines**, and only the **craft
 |---|---|---|---|---|
 | a song | `modes/music.md` | | anything rendered in code | `engines/code.md` |
 | a script, VO or score (short, cutscene, story) | `modes/film.md` | | realism / AI clips | `engines/ai-clip.md` |
-| a talking clip (< 3 min, reel/Short) | `modes/talking.md` | | camera or dance guidance for AI clips | `engines/guide-3d.md` |
+| a talking clip (< 3 min, reel/Short), or a multi-speaker pitch film | `modes/talking.md` | | camera or dance guidance for AI clips | `engines/guide-3d.md` |
 | long footage or narration | `modes/youtube.md` | | recreate a reference clip | `engines/recreate.md` |
 
 | Craft need | File |
@@ -43,7 +43,7 @@ Read this file, then **one mode**, **at most two engines**, and only the **craft
    - **Taste memory:** `~/.video-director/taste.jsonl` records what the user rejected and why, so those mistakes aren't repeated. It never pushes toward repeating a past look.
 3. **Five questions in one message,** each with a default. "go" accepts all of them. The mode file lists the questions.
 4. **Route.** Print one line per scene: the engine, why, and the cost (render minutes, token weight, credits). Pick the **lightest engine that passes a frame-first test**. If its first still misses the look, step up one engine. Never start on the heavy one.
-   - **Read the rules before building:** `references/lessons.md` (talking: also `talking/checks.md`). Every past correction is a line there.
+   - **Read the rules before building:** `references/lessons.md` (talking: also `talking/checks.md`), plus the user's own `~/.video-director/checks.md` if it exists. Every past correction is a line there; the user's file wins over the plugin's.
    - **Land on the word:** anything a word names (a row, a chip, a lyric, a prop) appears on that word's start + 0.05 s, never before it, at most 2 s after. Nothing stays still for more than about 3 s; nothing moves after it lands. (Board-sync rules from sirioberati/YouTube-AI-Motion-Graphics.)
 5. **BRIEF.md in numbers:** size, fps, palette hex, fonts with links, easing, plus the **feel card** (`references/feel.md`).
 6. **Storyboard / scene plan.** If any credits will be spent, STOP for an explicit "yes" on the plan and its cost.
@@ -88,7 +88,7 @@ Read this file, then **one mode**, **at most two engines**, and only the **craft
 4. Fix at the cause. If one bug shows up in several scenes, fix the shared system.
 5. Answer with frames. Put **one decision at a time** in front of the user, with the recommended default pre-picked, as a plain question at the end of the message.
 6. After each round, ask whether the bar moved from "correct" to "wow".
-7. Every complaint becomes a rule: add one line to `references/lessons.md`, or a check to `film_gate.py`, so it can't come back.
+7. Every complaint becomes a rule: one line `- DO / DON'T: rule (film that taught it)` in `~/.video-director/checks.md` (create it if missing; the plugin folder is replaced on update, so never write lessons there), or a check to `film_gate.py`. Offer to upstream general lessons to the plugin repo.
 
 ## When something else fits better
 - Just timed words on a backdrop: suggest a browser lyric tool (hookline.cc).
