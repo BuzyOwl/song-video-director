@@ -67,8 +67,24 @@ Before a master, sweep the whole film on today's code against the cut.
 - Looping previews: 10-bit AVIF, not lossy WebP (it blocked dark gradients):
   `ffmpeg -i in.mp4 -c:v libsvtav1 -crf 23 -preset 6 -pix_fmt yuv420p10le -f avif out.avif`.
 - Read the stored entry back after writing. Third-party reference footage stays off the page.
-- Minimal page: a folder of one JSON per entry + a static page listing them newest first. A private Artifact page works
-  too (it can be shared with collaborators).
+- **Recommended page: WIP** (Imaginative-Prompting/wip, MIT, Node 22+, local, no account). One list, one persistent
+  player (paired audio is the master clock), a "current cut" on repeat, frame stepping, drawing on paused frames.
+  Setup once: `git clone https://github.com/Imaginative-Prompting/wip.git && cd wip && npm ci`; copy `example/` to the
+  project's `review/` folder and point `wip.json` `mounts` at its `renders/` (media is referenced, never copied in).
+  Serve: `node bin/wip.mjs serve --config review/wip.json` → http://127.0.0.1:7353.
+  - New project: `wip project --id <song> --title "<Song>"`. New entry: write the JSON, `wip put --project <song> --file e.json`.
+  - **Update = read then write with the revision you read:** `wip get --id <id>` → edit → `wip put ... --expected N`.
+    Never bypass a revision conflict; re-read and reconcile. Prefer a new entry per pass over editing an old one.
+  - Entry fields: `id`, `title`, `tags[]`, `body` (markdown; put known issues first), `updatedAt`, optional `summary`,
+    `status`, `media[]` (`type` image/audio/video, `src` `/media/<mount>/<path>`, `poster`, `songClock: true` +
+    `offset` seconds for a clip against the song, `fps`).
+  - Latest full render → `wip current --project <song> --file track.json --expected N` (`audio`, `video`, `poster`,
+    `duration`, `chapters: [{t, label}]` = song sections).
+  - `wip validate` after every write (exits nonzero on a missing file).
+  - **Feedback in:** the creator clicks the frame counter to copy a clip + frame reference, and draws on frames;
+    `wip annotations --project <song>` lists the drawings. Treat both as timestamped notes (feedback rounds).
+  - Static export only with an explicit project allowlist, and only when the creator asks; drafts stay local.
+- No WIP? A folder of one JSON per entry + a static page newest first, or a private Artifact page (shareable).
 ```json
 {"id": "chorus-1-draft-4", "title": "Chorus 1, draft 4", "createdAt": "2026-10-12T14:05:00+04:00",
  "subject": "chorus-1", "knownIssues": ["f1520–1524: sign letters flicker (coplanar faces); fix in draft 5"],

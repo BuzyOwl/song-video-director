@@ -82,7 +82,7 @@ Read this file, then **one mode**, **at most two engines**, and only the **craft
 - **Clean up:** after a verified render, delete bundles, check frames and render temp. Keep source and deliverables.
 
 ## Feedback rounds (timestamps)
-1. Map each timestamp to its scene.
+1. Map each timestamp to its scene. Notes from the WIP review page (copied clip + frame references, `wip annotations` drawings) count as timestamps; open the marked frame before answering.
 2. Pull frames from the latest render: `ffmpeg -ss <t> -i <mp4> -frames:v 1 -vf scale=480:-1 f.jpg`, or a strip of every frame around the moment.
 3. Name the real cause: no camera motion, wrong scale, a crossfade ghost, a style mismatch, a tempo mismatch, or an effect with no meaning.
 4. Fix at the cause. If one bug shows up in several scenes, fix the shared system.

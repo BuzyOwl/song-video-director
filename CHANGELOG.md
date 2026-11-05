@@ -4,6 +4,8 @@
 - New `craft/` layer, loaded one file at a time: story, camera, motion, timing, blocking, light, render, team. Camera, motion, timing, blocking, light, render and team are adapted from Imaginative-Prompting/claude-video-skills (MIT); story comes from the author's film-cinematographer skill.
 - New film mode for animated shorts, cutscenes and narrated story films (script or VO as the clock, blocking first, shot by shot).
 - Fixes from measured evidence: no `concat -c copy` joins (21 ms drift, dropped frames); render muted and mux the WAV (Remotion AAC ~43 ms late); Whisper word times are for which word, not when (0.5-0.8 s early on sung vocals).
+- talking/checks.md absorbs the group and pitch film lessons from the standalone skill; new lessons go to `~/.video-director/checks.md`, which survives plugin updates.
+- Review page: WIP (Imaginative-Prompting/wip) recommended, with its CLI and entry format; its frame references and drawings feed feedback rounds.
 - `film_gate.py` reports delivery facts (BT.709 tags, constant frame rate, A/V start offset), with a test.
 
 ## 2.0.0 (2026-10-25)
